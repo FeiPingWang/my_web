@@ -4,7 +4,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy import Column, Integer, String
 
 
-engine = create_engine("mysql://root:123456@localhost:3306/myweb?charset=utf8", echo=False)
+engine = create_engine("mysql://root:123456@localhost:3306/moneyfree?charset=utf8", echo=False)
 Session = sessionmaker(bind=engine)
 
 
@@ -15,10 +15,6 @@ def new_session():
 
 # 基类
 class Model(object):
-    
-    @declared_attr
-    def id(self):
-        return Column(Integer, primary_key=True)  # 唯一性的UUID
 
     @classmethod
     def _add(cls, self):

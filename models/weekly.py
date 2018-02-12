@@ -1,12 +1,18 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
 from models import Base
+from datetime import datetime
+from models.users import User
 
 
 # 周报表
 class Weekly(Base):
     __tablename__ = 'weekly'
 
-    name = Column(String(20))
-    password = Column(String(20))
-    email = Column(String(30))
-    brief = Column(String(140))
+    note_id = Column(Integer, primary_key=True, nullable=False)
+    title = Column(String(50), nullable=False)
+    content = Column(String, nullable=False)
+    ct = Column(DateTime, default=datetime.datetime.utcnow)
+    mt = Column(DateTime, default=datetime.datetime.utcnow)
+    user_id = Column(Integer, ForeignKey('User.user_id'))
+    comment = Column(String)
+    
