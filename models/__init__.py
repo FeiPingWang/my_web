@@ -4,7 +4,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy import Column, Integer, String
 
 
-engine = create_engine("mysql://root:123456@localhost:3306/moneyfree?charset=utf8", echo=False)
+engine = create_engine("mysql+pymysql://root:123456@localhost:3306/moneyfree?charset=utf8", echo=False)
 Session = sessionmaker(bind=engine)
 
 

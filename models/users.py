@@ -6,14 +6,14 @@ from flask import flash
 
 # 用户表
 class User(Base):
-    __tablename__ = 'user'
+    __tablename__ = 'User'
 
     user_id = Column(Integer, primary_key=True, nullable=False)
     user_name = Column(String(20), nullable=False)
     password = Column(String(20), nullable=False)
     phone = Column(String(20))
     email = Column(String(30))
-    brief = Column(String(140), default='新人报道啦')
+    brief = Column(String(140), default='new guy')
     ct = Column(DateTime, default=datetime.datetime.utcnow)
     
     def __init__(self, form):
