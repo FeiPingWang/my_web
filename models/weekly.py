@@ -2,6 +2,7 @@ from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
 from models import Base
 from datetime import datetime
 from models.users import User
+from models.board import Board
 
 
 # 周报表
@@ -14,11 +15,13 @@ class Weekly(Base):
     ct = Column(DateTime, default=datetime.utcnow)
     mt = Column(DateTime, nullable=False, default=datetime.utcnow)
     user_id = Column(Integer, ForeignKey('User.user_id'))
-    comment = Column(String)
+    board_id = Column(Integer, ForeignKey('Board.board_id'))
     
     def __init__(self, form, user_id):
         self.title = form.get('title', '')
         self.content = form.get('content', '')
+        # self.board_id = form.get('board_id', '')
+        self.board_id = 1
         self.mt = self.ct
         self.user_id = user_id
-    
+       

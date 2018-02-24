@@ -8,7 +8,7 @@ from flask import (
     flash,
 )
 from models.weekly import Weekly
-from routes.index import current_user
+from tools.utils import current_user_id
 
 
 main = Blueprint('weekly', __name__)
@@ -27,7 +27,8 @@ def new():
 @main.route('/add', methods=['POST'])
 def add():
     form = request.form
-    u = current_user()
-    note = Weekly(form, user_id=1)
+    user_id = current_user_id()
+    # board_id = get_board_id(title=form.get('board_id', '-1'))
+    note = Weekly(form, user_id=user_id)
     Weekly._add(note)
     return '<h1> add ok</h1>'

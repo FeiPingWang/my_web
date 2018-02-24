@@ -29,20 +29,19 @@ class User(Base):
         )
     
     @classmethod
-    def validate(cls, name, password):
-        ret = True
+    def validate(cls, form):
+        name = form.get('username', '')
+        password = form.get('password', '')
         session = new_session()
-        result = session.query(User.user_name, User.password).filter(User.user_name==name, User.password==password).first()
-        if result == None:
-            ret = False
+        result = session.query(User.user_id, User.user_name, User.password).\
+            filter(User.user_name == name, User.password == password).first()
+        print(result)
         session.close()
-        return ret
-        
-
-if __name__ == '__main__':
-    # Base.metadata.create_all(engine)
-    session = new_session()
-    u = session.query(User.user_name, User.password).filter(User.user_name == 'wfp', User.password == '1234').first()
-    print(u)
-    pass
+        # result is a tuple
+        return result
     
+    
+    @classmethod
+    def get_user_by_id(cls, user_id):
+        pass
+        

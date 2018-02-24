@@ -8,32 +8,30 @@ from flask import (
     flash,
 )
 from models.users import User
+from tools.utils import current_user_id
+
 
 main = Blueprint('index', __name__)
 
 
-# 根据session得到当前的用户
-def current_user():
-    cur = session.get('user_name', '')
-    return cur
-
-
 @main.route('/', methods=['GET', 'POST'])
 def index():
-    u = session.get('user_name', '')
-    return 'hello {}'.format(u)
+    u = current_user_id()
+    if int(u) == -1:   # 未登陆
+        return redirect(url_for('index.login'))
+    else:
+        return render_template('index.html')
 
 
 @main.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        name = request.form.get('username', '')
-        password = request.form.get('password', '')
-        if User.validate(name, password):
-            session['user_name'] = name
-            return redirect(url_for('index.index')) # 登录成功
-        else:
+        u = User.validate(request.form)
+        if u is None:
             flash('找不到用户名')
+        else:
+            session['user_id'] = u[0]   # u[0] is user_id
+            return redirect(url_for('index.index'))  # 登录成功
     return render_template('login.html')
 
 
