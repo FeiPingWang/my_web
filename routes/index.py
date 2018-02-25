@@ -9,7 +9,7 @@ from flask import (
 )
 from models.users import User
 from tools.utils import current_user_id
-
+from models.board import Board
 
 main = Blueprint('index', __name__)
 
@@ -20,7 +20,8 @@ def index():
     if int(u) == -1:   # 未登陆
         return redirect(url_for('index.login'))
     else:
-        return render_template('index.html')
+        board_list = Board.get_all_board()
+        return render_template('index.html', board=board_list)
 
 
 @main.route('/login', methods=['GET', 'POST'])

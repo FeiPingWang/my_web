@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
 from models import Base
+from models import new_session
 
 
 # 论坛的版块
@@ -13,3 +14,11 @@ class Board(Base):
         return "<Board(id='{}', title='{}')>".format(
             self.id, self.title
         )
+    
+    # 返回所有的版块
+    @classmethod
+    def get_all_board(cls):
+        session = new_session()
+        list = session.query(Board.title).all()
+        return list
+        

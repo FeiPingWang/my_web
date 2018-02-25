@@ -25,3 +25,4 @@ class Weekly(Base):
         self.mt = self.ct
         self.user_id = user_id
        
+    
