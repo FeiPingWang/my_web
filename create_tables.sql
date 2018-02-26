@@ -9,7 +9,8 @@ create table User (
   email     VARCHAR(30),
   brief     VARCHAR(140) DEFAULT 'new guy',
   ct        TIMESTAMP    DEFAULT CURRENT_TIMESTAMP
-);
+)DEFAULT CHARSET=utf8;
+
 
 
 CREATE TABLE Week_Note (
@@ -20,13 +21,13 @@ CREATE TABLE Week_Note (
   mt       TIMESTAMP   NOT NULL,
   user_id  INT         NOT NULL,
   board_id INT         NOT NULL
-);
+)DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE Board (
   board_id INT         NOT NULL PRIMARY KEY AUTO_INCREMENT,
   title    VARCHAR(50) NOT NULL
-);
+)DEFAULT CHARSET=utf8;
 
 
 ALTER TABLE Week_Note
