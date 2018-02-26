@@ -1,16 +1,20 @@
 create database moneyfree;
 use moneyfree;
 
+DROP TABLE Week_Note;
+DROP TABLE User;
+DROP TABLE Board;
+
+
 create table User (
   user_id   INT         NOT NULL PRIMARY KEY AUTO_INCREMENT,
   user_name VARCHAR(20) NOT NULL,
-  password  VARCHAR(20) NOT NULL,
+  password  VARCHAR(100) NOT NULL,
   phone     VARCHAR(20),
   email     VARCHAR(30),
   brief     VARCHAR(140) DEFAULT 'new guy',
   ct        TIMESTAMP    DEFAULT CURRENT_TIMESTAMP
 )DEFAULT CHARSET=utf8;
-
 
 
 CREATE TABLE Week_Note (

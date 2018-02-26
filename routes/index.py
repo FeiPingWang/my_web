@@ -11,6 +11,7 @@ from models.users import User
 from tools.utils import current_user_id
 from models.board import Board
 
+
 main = Blueprint('index', __name__)
 
 
@@ -41,6 +42,7 @@ def register():
     if request.method == 'POST':
         form = request.form
         u = User(form)
+        print('password ', u.password)
         User._add(u)
         return redirect(url_for('index.index'))
     return render_template('register.html')
