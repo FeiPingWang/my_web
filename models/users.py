@@ -3,13 +3,18 @@ from models import Base, new_session, Model, engine
 import datetime
 from flask import flash
 from werkzeug.security import generate_password_hash, check_password_hash
+import uuid
+
+
+def generate_uuid():
+    return uuid.uuid4().hex
 
 
 # 用户表
 class User(Base):
     __tablename__ = 'User'
 
-    user_id = Column(Integer, primary_key=True, nullable=False)
+    user_id = Column(String(32), default=generate_uuid, primary_key=True, nullable=False)
     user_name = Column(String(20), nullable=False)
     password = Column(String(100), nullable=False)
     phone = Column(String(20))
@@ -37,9 +42,9 @@ class User(Base):
         result = session.query(User.user_id, User.user_name, User.password).\
             filter(User.user_name == name).first()
         session.close()
-        print(result)
-        if(check_password_hash(result[2], password) == True):
-            return result
+        if result is not None:
+            if(check_password_hash(result[2], password) == True):
+                return result
         else:
             return None
     

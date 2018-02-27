@@ -18,7 +18,7 @@ main = Blueprint('index', __name__)
 @main.route('/', methods=['GET', 'POST'])
 def index():
     u = current_user_id()
-    if int(u) == -1:   # 未登陆
+    if u == 'null':   # 未登陆
         return redirect(url_for('index.login'))
     else:
         board_list = Board.get_all_board()

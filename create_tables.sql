@@ -7,12 +7,12 @@ DROP TABLE Board;
 
 
 create table User (
-  user_id   INT         NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  user_name VARCHAR(20) NOT NULL,
+  user_id   VARCHAR(32)  NOT NULL PRIMARY KEY,
+  user_name VARCHAR(20)  NOT NULL,
   password  VARCHAR(100) NOT NULL,
   phone     VARCHAR(20),
   email     VARCHAR(30),
-  brief     VARCHAR(140) DEFAULT 'new guy',
+  brief     VARCHAR(140) DEFAULT '介绍下自己吧',
   ct        TIMESTAMP    DEFAULT CURRENT_TIMESTAMP
 )DEFAULT CHARSET=utf8;
 
@@ -23,7 +23,7 @@ CREATE TABLE Week_Note (
   content  TEXT        NOT NULL,
   ct       TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
   mt       TIMESTAMP   NOT NULL,
-  user_id  INT         NOT NULL,
+  user_id  VARCHAR(32) NOT NULL,
   board_id INT         NOT NULL
 )DEFAULT CHARSET=utf8;
 
