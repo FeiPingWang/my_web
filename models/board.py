@@ -19,6 +19,6 @@ class Board(Base):
     @classmethod
     def get_all_board(cls):
         session = new_session()
-        list = session.query(Board.title).all()
-        return list
+        board_list = session.query(Board.title).all()
+        return list(board_list)
         

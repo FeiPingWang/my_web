@@ -8,6 +8,7 @@ from flask import (
     flash,
 )
 from models.weekly import Weekly
+from models.board import Board
 from tools.utils import current_user_id
 
 
@@ -16,12 +17,16 @@ main = Blueprint('weekly', __name__)
 
 @main.route('/', methods=['GET'])
 def weekly_index():
-    return '<h1> topic </h1>'
+    topic = Board.get_all_board()
+    weekly = Weekly.get_all_note()
+    return render_template('weekly/index.html', board=topic, weekly=weekly)
 
 
 @main.route('/new', methods=['GET'])
 def new():
-    return render_template('new.html', bs=['1','2','3'])
+    # 返回话题列表
+    topic = list(Board.get_all_board())
+    return render_template('new.html', board=topic)
 
 
 @main.route('/add', methods=['POST'])

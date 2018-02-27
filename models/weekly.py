@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
-from models import Base
+from models import Base, new_session
 from datetime import datetime
 from models.users import User
 from models.board import Board
@@ -24,5 +24,13 @@ class Weekly(Base):
         self.board_id = 1
         self.mt = self.ct
         self.user_id = user_id
-       
+        
     
+    @classmethod
+    def get_all_note(cls):
+        session = new_session()
+        note = session.query(Weekly.title, Weekly.ct).all()
+        return list(note)
+        
+       
+
