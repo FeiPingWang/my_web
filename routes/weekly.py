@@ -26,6 +26,7 @@ def weekly_index():
 def new():
     # 返回话题列表
     topic = list(Board.get_all_board())
+    print(topic)
     return render_template('new.html', board=topic)
 
 
@@ -33,7 +34,6 @@ def new():
 def add():
     form = request.form
     user_id = current_user_id()
-    # board_id = get_board_id(title=form.get('board_id', '-1'))
     note = Weekly(form, user_id=user_id)
     Weekly._add(note)
-    return '<h1> add ok</h1>'
+    return redirect(url_for('weekly.weekly_index'))

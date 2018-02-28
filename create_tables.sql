@@ -18,7 +18,7 @@ create table User (
 
 
 CREATE TABLE Week_Note (
-  note_id  INT         NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  note_id  VARCHAR(32) NOT NULL PRIMARY KEY,
   title    VARCHAR(50) NOT NULL,
   content  TEXT        NOT NULL,
   ct       TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,

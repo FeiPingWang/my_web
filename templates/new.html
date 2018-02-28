@@ -25,8 +25,8 @@
         <span class="tab-selector">选择版块：</span>
         <select name="board_id" id="board" required>
             <option value="">请选择</option>
-                {% for b in bs %}
-                <option value="{{ b.id }}">{{ b.title }}</option>
+                {% for b in board %}
+                <option value="{{ b[0] }}">{{ b[1] }}</option>
                 {% endfor %}
         </select>
         <div class='markdown_editor in_editor'>

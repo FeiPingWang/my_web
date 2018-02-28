@@ -3,11 +3,7 @@ from models import Base, new_session, Model, engine
 import datetime
 from flask import flash
 from werkzeug.security import generate_password_hash, check_password_hash
-import uuid
-
-
-def generate_uuid():
-    return uuid.uuid4().hex
+from tools.utils import generate_uuid
 
 
 # 用户表

@@ -22,6 +22,7 @@ def index():
         return redirect(url_for('index.login'))
     else:
         board_list = Board.get_all_board()
+        print("25 ", list(board_list))
         return render_template('index.html', board=board_list)
 
 
