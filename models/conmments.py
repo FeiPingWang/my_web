@@ -29,6 +29,5 @@ class Comments(Base):
     def find_by_note_id(cls, id):
         session = new_session()
         comments = session.query(cls).filter(cls.note_id == id).order_by(cls.ct).all()
-        print(comments)
         
         return list(comments)
