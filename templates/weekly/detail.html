@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %} 首页 {% endblock %}
+{% block body %}
+{{ super() }}
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="page-header" id="header">
+				<h2>
+					{{ note['Weekly.title'] }}
+				</h2>
+                <span>
+                    浏览/回复 {{ note['Weekly.views'] }} / {{ note['Weekly.replys'] }}
+					作者 {{ author }}
+                    创建时间 {{ note['Weekly.ct'] }}
+                </span>
+			</div>
+		</div>
+	</div>
+	<div class="row-fluid">
+		<div class="span12" id="content">
+            {{ note['Weekly.content'] }}
+		</div>
+	</div>
+	<div class="row-fluid">
+		<div class="span12" id="comment">
+            {% for c in comments %}
+            <ul>
+                {{ c.content }}
+            </ul>
+            {% endfor %}
+		</div>
+	</div>
+    <div >
+        <form action={{ url_for('weekly.add_comment', id=note['Weekly.id']) }} method="post">
+            <textarea type="text" name='content' placeholder="留下你的评论"></textarea>
+            <button type="submit">提交评论</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+    // 文档加载完成后，渲染markdown
+    $(document).ready(function(){
+        var md = window.markdownit();
+        var content = $('#content').text().trim();
+        console.log(content);
+        markdown_text = md.render(content);
+        console.log(markdown_text);
+        $('#content').html(markdown_text);
+    })
+{% endblock %}

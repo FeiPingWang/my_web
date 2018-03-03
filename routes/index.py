@@ -10,6 +10,7 @@ from flask import (
 from models.users import User
 from tools.utils import current_user_id
 from models.board import Board
+from models.weekly import Weekly
 
 
 main = Blueprint('index', __name__)
@@ -22,7 +23,8 @@ def index():
         return redirect(url_for('index.login'))
     else:
         board_list = Board.get_all_board()
-        return render_template('index.html', board=board_list)
+        note = Weekly.get_all_note()
+        return render_template('index.html', board=board_list, weekly=note)
 
 
 @main.route('/login', methods=['GET', 'POST'])
@@ -42,7 +44,7 @@ def register():
     if request.method == 'POST':
         form = request.form
         u = User(form)
-        User._add(u)
+        User.new(u)
         return redirect(url_for('index.index'))
     return render_template('register.html')
 

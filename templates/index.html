@@ -15,4 +15,24 @@
 <div class="col-lg-2 col-md-offset-8">
     <a href="{{ url_for("weekly.new") }}" class="btn btn-success">发表文章</a>
 </div>
+<table class="table">
+    <caption>文章列表</caption>
+    <tbody>
+    {% for note in weekly %}
+        <tr>
+            <td>
+                 <span>1</span>
+                 <span> / </span>
+                 <span>2</span>
+            </td>
+            <td>
+                <a href="{{ url_for('weekly.detail', id=note['Weekly.id']) }}">{{ note['Weekly.title'] }}</a>
+            </td>
+            <td>
+                {{ note['Weekly.ct'] }}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
 {% endblock %}

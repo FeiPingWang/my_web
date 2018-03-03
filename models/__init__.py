@@ -17,18 +17,24 @@ def new_session():
 class Model(object):
 
     @classmethod
-    def _add(cls, self):
+    def new(cls, self):
         session = new_session()
         session.add(self)
         session.commit()
         session.close()
     
     @classmethod
-    def _delete(cls, self):
+    def delete(cls, self):
         session = new_session()
         session.delete(self)
         session.commit()
         session.close()
+        
+    @classmethod
+    def get_obj_by_id(cls, id):
+        session = new_session()
+        obj = session.query(cls).filter(cls.id == id).first()
+        return session, obj
         
         
 # 提供给具体的model继承

@@ -10,7 +10,7 @@ from tools.utils import generate_uuid
 class User(Base):
     __tablename__ = 'User'
 
-    user_id = Column(String(32), default=generate_uuid, primary_key=True, nullable=False)
+    id = Column(String(32), default=generate_uuid, primary_key=True, nullable=False)
     user_name = Column(String(20), nullable=False)
     password = Column(String(100), nullable=False)
     phone = Column(String(20))
@@ -27,7 +27,7 @@ class User(Base):
 
     def __repr__(self):
         return "<User(id='{}', name='{}', email='{}', brief='{}')>".format(
-            self.user_id, self.user_name, self.email, self.brief
+            self.id, self.user_name, self.email, self.brief
         )
     
     @classmethod
@@ -35,7 +35,7 @@ class User(Base):
         name = form.get('username', '')
         password = form.get('password', '')
         session = new_session()
-        result = session.query(User.user_id, User.user_name, User.password).\
+        result = session.query(User.id, User.user_name, User.password).\
             filter(User.user_name == name).first()
         session.close()
         if result is not None:

@@ -2,32 +2,5 @@
 {% block title %} 首页 {% endblock %}
 {% block body %}
 {{ super() }}
-<div class="container">
-    <div class="row">
-        <ul class="nav nav-tabs">
-        {% for b in board %}
-            <li><a href="#">{{ b[1] }}</a></li>
-        {% endfor %}
-        </ul>
-    </div>
-</div>
-<div class="container">
-    {% for w in weekly %}
-    <div class="row">
-        <span title="回复数">
-        100
-        </span>
-        <span title="浏览数">/
-        200
-        </span>
-        <span>
-        <a href="#">{{ w[0] }}</a>
-        </span>
-        <span>
-        <a href="#">{{ w[1] }}</a>
-        </span>
-    </div>
 
-    {% endfor %}
-</div>
 {% endblock %}
