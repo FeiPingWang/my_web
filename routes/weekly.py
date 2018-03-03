@@ -10,6 +10,7 @@ from flask import (
 from models.weekly import Weekly
 from models.board import Board
 from tools.utils import current_user_id
+from tools.log import logger
 
 
 main = Blueprint('weekly', __name__)
@@ -25,8 +26,8 @@ def weekly_index():
 @main.route('/new', methods=['GET'])
 def new():
     # 返回话题列表
-    topic = list(Board.get_all_board())
-    print(topic)
+    topic = Board.get_all_board()
+    logger.info('board list: ', topic)
     return render_template('new.html', board=topic)
 
 
