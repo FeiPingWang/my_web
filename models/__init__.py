@@ -49,6 +49,12 @@ class Model(object):
     def close_session(cls, session):
         session.close()
         
+    @classmethod
+    def get_all_obj(cls, **kwargs):
+        session = new_session()
+        obj = session.query(cls).all()
+        return list(obj)
+    
     
 # 提供给具体的model继承
 Base = declarative_base(cls=Model)

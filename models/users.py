@@ -35,11 +35,10 @@ class User(Base):
         name = form.get('username', '')
         password = form.get('password', '')
         session = new_session()
-        result = session.query(User.id, User.user_name, User.password).\
-            filter(User.user_name == name).first()
+        result = session.query(cls).filter(User.user_name == name).first()
         session.close()
         if result is not None:
-            if(check_password_hash(result[2], password) == True):
+            if(check_password_hash(result.password, password) == True):
                 return result
         else:
             return None

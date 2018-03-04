@@ -21,7 +21,7 @@ main = Blueprint('weekly', __name__)
 @main.route('/new', methods=['GET'])
 def new():
     # 返回话题列表
-    topic = Board.get_all_board()
+    topic = Board.get_all_obj()
     return render_template('weekly/new.html', board=topic)
 
 
@@ -40,7 +40,9 @@ def detail(id):
     # 增加浏览次数一次
     session, obj = Weekly.find_by_id_session(id)
     if obj is not None:
+        # print("vies ", obj.views)
         obj.views += 1
+        session.commit()
     else:
         logger.error('get_obj_by_id is None')
   

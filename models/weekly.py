@@ -30,11 +30,6 @@ class Weekly(Base):
         return "<Note(id='{}', title='{}', content='{}', ct='{}')>".format(
             self.id, self.title, self.content, self.ct
         )
-        
-    @classmethod
-    def get_all_note(cls):
-        note = Query_all(Weekly.id, Weekly.title, Weekly.ct)
-        return note
     
     
 if __name__ == '__main__':

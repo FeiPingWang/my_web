@@ -22,9 +22,10 @@ def index():
     if u == 'null':   # 未登陆
         return redirect(url_for('index.login'))
     else:
-        board_list = Board.get_all_board()
-        note = Weekly.get_all_note()
-        return render_template('index.html', board=board_list, weekly=note)
+        board_list = Board.get_all_obj()
+        note = Weekly.get_all_obj()
+        print('note ', note)
+        return render_template('index.html', board=board_list, note=note)
 
 
 @main.route('/login', methods=['GET', 'POST'])
@@ -34,9 +35,20 @@ def login():
         if u is None:
             flash('找不到用户名')
         else:
-            session['user_id'] = u[0]   # u[0] is user_id
+            session['user_id'] = u.id   # u[0] is user_id
+            session['user_name'] = u.user_name
             return redirect(url_for('index.index'))  # 登录成功
     return render_template('login.html')
+
+
+@main.route('/logout', methods=['GET'])
+def logout():
+    if session['user_id'] and session['user_id'] is not None:
+        session.pop('user_id')
+        session.pop('user_name')
+        return redirect(url_for('index.login'))
+    else:
+        return flash('还未登录')
 
 
 @main.route('/register', methods=['GET', 'POST'])

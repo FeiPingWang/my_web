@@ -15,9 +15,3 @@ class Board(Base):
         return "<Board(id='{}', title='{}')>".format(
             self.id, self.title
         )
-    
-    # 返回所有的版块
-    @classmethod
-    def get_all_board(cls):
-        return Query_all(Board.id, Board.title)
-        

@@ -1,4 +1,10 @@
 {% extends 'base.html' %}
+{% block head %}
+{{ super() }}
+<!-- TODO: 为什么这里找不到父模板中的my_web.css-->
+<link rel="stylesheet" type="text/css" href="/static/css/my_web.css">
+{% endblock %}
+
 {% block title %} 首页 {% endblock %}
 {% block body %}
 {{ super() }}
