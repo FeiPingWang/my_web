@@ -7,19 +7,19 @@
 		<div class="span12">
 			<div class="page-header" id="header">
 				<h2>
-					{{ note['Weekly.title'] }}
+					{{ note.title }}
 				</h2>
                 <span>
-                    浏览/回复 {{ note['Weekly.views'] }} / {{ note['Weekly.replys'] }}
+                    浏览/回复 {{ note.views }} / {{ note.replys }}
 					作者 {{ author }}
-                    创建时间 {{ note['Weekly.ct'] }}
+                    创建时间 {{ note.ct }}
                 </span>
 			</div>
 		</div>
 	</div>
 	<div class="row-fluid">
 		<div class="span12" id="content">
-            {{ note['Weekly.content'] }}
+            {{ note.content }}
 		</div>
 	</div>
 	<div class="row-fluid">
@@ -32,7 +32,7 @@
 		</div>
 	</div>
     <div >
-        <form action={{ url_for('weekly.add_comment', id=note['Weekly.id']) }} method="post">
+        <form action={{ url_for('weekly.add_comment', id=note.id) }} method="post">
             <textarea type="text" name='content' placeholder="留下你的评论"></textarea>
             <button type="submit">提交评论</button>
         </form>

@@ -44,3 +44,4 @@ Temporary Items
 *.xml
 .idea/my_web.iml
 *.pyc
+models/my_web.log

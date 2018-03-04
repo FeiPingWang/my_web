@@ -26,18 +26,23 @@ class Weekly(Base):
         self.mt = self.ct
         self.user_id = user_id
         
+    def __repr__(self):
+        return "<Note(id='{}', title='{}', content='{}', ct='{}')>".format(
+            self.id, self.title, self.content, self.ct
+        )
+        
     @classmethod
     def get_all_note(cls):
         note = Query_all(Weekly.id, Weekly.title, Weekly.ct)
         return note
-        
-    @classmethod
-    def find_by_id(cls, id=id):
-        # TODO: 待优化
-        session = new_session()
-        note = session.query(Weekly.id, Weekly.title, Weekly.content, Weekly.ct, Weekly.views, Weekly.replys).filter(Weekly.id == id).first()
-        session.close()
-        return convert_to_dict([Weekly.id, Weekly.title, Weekly.content, Weekly.ct, Weekly.views, Weekly.replys], tuple_or_list = note)
+    
+    
+if __name__ == '__main__':
+    session = new_session()
+    note = session.query(Weekly).filter(Weekly.id == '7dee3463990f4bb99dbac63f77046eb9').first()
+    print(note)
+    session.close()
+    print(note)
     
        
 

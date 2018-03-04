@@ -37,30 +37,34 @@ def add():
 @main.route('/detail/<id>')
 def detail(id):
     note = Weekly.find_by_id(id)
-    
     # 增加浏览次数一次
-    session, obj = Weekly.get_obj_by_id(id)
+    session, obj = Weekly.find_by_id_session(id)
     if obj is not None:
         obj.views += 1
     else:
         logger.error('get_obj_by_id is None')
-    
-    print('obj.id ', obj.id)
+  
+    Weekly.close_session(session)
     # 根据用户Id，查找作者
-    author = session.query(User.user_name).filter(User.id == obj.user_id).first()
-    session.commit()
-    session.close()
+    author = User.find_by_id(current_user_id()).user_name
     
     # 根据文章id，查找其所有评论
     comments = Comments.find_by_note_id(id)
-    return render_template('weekly/detail.html', note=note, comments=comments, author=author[0])
+    return render_template('weekly/detail.html', note=note, comments=comments, author=author)
 
 
 @main.route('/detail/<id>/add_commit', methods=['POST'])
 def add_comment(id):
     content = request.form.get('content', 'null')
-    user_id = current_user_id()
     
-    obj = Comments(content, user_id, id)
+    # 文章的评论数加1
+    session, note = Weekly.find_by_id_session(id)
+    # print('id {}, note {}'.format(id, note))
+    if note is not None:
+        note.replys += 1
+        session.commit()
+        Weekly.close_session(session)
+    
+    obj = Comments(content, current_user_id(), id)
     Comments.new(obj)
     return redirect(url_for('weekly.detail', id=id))

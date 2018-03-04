@@ -30,12 +30,25 @@ class Model(object):
         session.commit()
         session.close()
         
+    # 需要修改对象
     @classmethod
-    def get_obj_by_id(cls, id):
+    def find_by_id_session(cls, id):
         session = new_session()
         obj = session.query(cls).filter(cls.id == id).first()
         return session, obj
+
+    # 只查询，不修改
+    @classmethod
+    def find_by_id(cls, id):
+        session = new_session()
+        obj = session.query(cls).filter(cls.id == id).first()
+        session.close()
+        return obj
         
+    @classmethod
+    def close_session(cls, session):
+        session.close()
         
+    
 # 提供给具体的model继承
 Base = declarative_base(cls=Model)
