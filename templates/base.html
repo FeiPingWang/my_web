@@ -4,32 +4,40 @@
     {% block head %}
 	<meta charset="utf-8">
 	<title>{% block title %}moneyfree{% endblock %}</title>
-	<link rel="stylesheet" type="text/css" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="static/css/my_web.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/style.css">
     <script src="/static/lib/jquery-3.0.0.min.js"></script>
 	<script src="/static/lib/markdownit.js"></script>
     {% endblock %}
 </head>
 <body>
-{% block body %}
-<nav class="nav nav-pills" role="navigation">
-	<div class="container-fluid">
-	<div class="navbar-header">
-		<label id="my_web_name">MoneyFree</label>
-	</div>
-	<div>
-		<ul class="nav navbar-nav navbar-right">
-            {% block navbar %}
-            <li class="active"><a class="nav-name" href="{{ url_for('index.index') }}">首页</a></li>
-			<li class="active"><a class="nav-name" href="{{ url_for('index.login') }}">登录</a></li>
-			<li class="active"><a class="nav-name" href="{{ url_for('index.register') }}">注册</a></li>
-			<li class="active"><a class="nav-name" href="{{ url_for('index.logout') }}">退出</a></li>
-            {% endblock %}
-		</ul>
-	</div>
-	</div>
-</nav>
-{% endblock %}
+    <div class="navbar">
+    {% block nav %}
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="brand" href={{ url_for("index.index") }}>
+                    <img src="/static/img/avater.img" width="40" height="34">
+                </a>
+            <ul class="nav pull-right">
+                <li><a href={{ url_for("index.index") }}>首页</a></li>
+                <li><a href={{ url_for("index.register") }}>注册</a></li>
+                <li><a href={{ url_for("index.login") }}>登录</a></li>
+            </ul>
+        </div>
+    {% endblock nav %}
+    </div>
+</div>
+
+<div id="main">
+    <div id="sidebar">
+        {% block sidebar %}
+		{% endblock %}
+    </div>
+    <div id="content">
+        {% block content %}
+        {% endblock content %}
+    </div>
+</div>
 </body>
 <script>
     {% block script %}

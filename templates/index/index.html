@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %} 首页 {% endblock %}
+
+{% block nav %}
+{{ super() }}
+{% endblock nav %}
+
+{% block sidebar %}
+    <a href="{{ url_for('weekly.new') }}">新建文章</a>
+{% endblock sidebar %}
+
+{% block content %}
+    <div class="panel">
+        <div class="header">
+            {% for b in board %}
+                <a href="#" class="topic-tab current-tab">{{ b.title }}</a>
+            {% endfor %}
+        </div>
+        <div class="inner no-padding">
+            <div id="topic_list">
+                {% for n in note %}
+                    <div class="cell">
+                        <a class="user_avatar pull-left" href="#">
+                            <img src="/static/img/avater.img" title="StudentWan">
+                        </a>
+                        <span class="reply_count pull-left">
+                        <span class="count_of_replies" title="回复数">{{ n.replys }}</span>
+                        <span class="count_seperator">/</span>
+                        <span class="count_of_visits" title="点击数">{{ n.views }}</span>
+                        </span>
+                        <span class="last_time pull-right">{{ n.ct }}</span>
+
+                        <div class="topic_title_wrapper">
+                            <span class="topiclist-tab">版块</span>
+                            <a class="topic_title" href="{{ url_for('weekly.detail', id=n.id) }}">{{ n.title }}</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}

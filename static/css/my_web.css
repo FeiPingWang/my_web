@@ -16,12 +16,6 @@
     font-size: 15px;
 }
 
-/* 登录注册表格的垂直位置 */
-.form-horizontal {
-    margin-top: 15%;
-}
-
-
 /* 模仿cnode论坛 */
 #main {
     width: 90%;
@@ -67,6 +61,15 @@
 
 .panel .inner.no-padding {
     padding: 0;
+}
+
+.panel .inner {
+    padding: 10px;
+    border-radius: 0 0 3px 3px;
+}
+
+.panel .inner>form.form-horizontal {
+    margin-top: 40px;
 }
 
 .panel .cell {

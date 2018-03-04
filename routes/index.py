@@ -25,7 +25,7 @@ def index():
         board_list = Board.get_all_obj()
         note = Weekly.get_all_obj()
         # print('note ', note)
-        return render_template('index.html', board=board_list, note=note)
+        return render_template('index/index.html', board=board_list, note=note)
 
 
 @main.route('/login', methods=['GET', 'POST'])
@@ -38,7 +38,7 @@ def login():
             session['user_id'] = u.id   # u[0] is user_id
             session['user_name'] = u.user_name
             return redirect(url_for('index.index'))  # 登录成功
-    return render_template('login.html')
+    return render_template('index/login.html')
 
 
 @main.route('/logout', methods=['GET'])
@@ -58,5 +58,5 @@ def register():
         u = User(form)
         User.new(u)
         return redirect(url_for('index.index'))
-    return render_template('register.html')
+    return render_template('index/register.html')
 
