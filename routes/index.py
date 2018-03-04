@@ -24,7 +24,7 @@ def index():
     else:
         board_list = Board.get_all_obj()
         note = Weekly.get_all_obj()
-        print('note ', note)
+        # print('note ', note)
         return render_template('index.html', board=board_list, note=note)
 
 
