@@ -1,7 +1,5 @@
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
 from models import Base
-from models import new_session
-from tools.orm import Query_all
 
 
 # 论坛的版块
@@ -15,3 +13,4 @@ class Board(Base):
         return "<Board(id='{}', title='{}')>".format(
             self.id, self.title
         )
+    

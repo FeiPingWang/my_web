@@ -1,8 +1,7 @@
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
-from models import Base, new_session
+from models import Base
 from datetime import datetime
 from tools.utils import generate_uuid
-from tools.orm import Query_all, convert_to_dict
 
 
 # 周报表
@@ -31,13 +30,14 @@ class Weekly(Base):
             self.id, self.title, self.content, self.ct
         )
     
-    
-if __name__ == '__main__':
-    session = new_session()
-    note = session.query(Weekly).filter(Weekly.id == '7dee3463990f4bb99dbac63f77046eb9').first()
-    print(note)
-    session.close()
-    print(note)
-    
-       
+    def incre_views(self):
+        with session_scope() as session:
+            print('views ', self.views)
+            self.views += 1
+            session.commit()
+
+    def incre_replys(self):
+        with session_scope() as session:
+            self.replys += 1
+            session.commit()
 

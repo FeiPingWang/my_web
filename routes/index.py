@@ -23,10 +23,10 @@ def index():
         return redirect(url_for('index.login'))
     else:
         board_list = Board.get_all_obj()
+        # print('board_list ', board_list)
         note = Weekly.get_all_obj()
-        # print('note ', note)
         return render_template('index/index.html', board=board_list, note=note)
-
+        
 
 @main.route('/login', methods=['GET', 'POST'])
 def login():

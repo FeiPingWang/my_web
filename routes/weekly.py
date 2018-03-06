@@ -12,7 +12,6 @@ from models.users import User
 from models.conmments import Comments
 from tools.utils import current_user_id
 from tools.log import logger
-from models.users import new_session
 
 
 main = Blueprint('weekly', __name__)
@@ -37,16 +36,11 @@ def add():
 @main.route('/detail/<id>')
 def detail(id):
     note = Weekly.find_by_id(id)
-    # 增加浏览次数一次
-    session, obj = Weekly.find_by_id_session(id)
-    if obj is not None:
-        # print("vies ", obj.views)
-        obj.views += 1
-        session.commit()
+    if note is not None:
+        note.views += 1
     else:
         logger.error('get_obj_by_id is None')
   
-    Weekly.close_session(session)
     # 根据用户Id，查找作者
     author = User.find_by_id(current_user_id()).user_name
     
@@ -60,12 +54,10 @@ def add_comment(id):
     content = request.form.get('content', 'null')
     
     # 文章的评论数加1
-    session, note = Weekly.find_by_id_session(id)
+    note = Weekly.find_by_id(id)
     # print('id {}, note {}'.format(id, note))
     if note is not None:
-        note.replys += 1
-        session.commit()
-        Weekly.close_session(session)
+        note.incre_replys()
     
     obj = Comments(content, current_user_id(), id)
     Comments.new(obj)

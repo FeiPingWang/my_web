@@ -1,8 +1,8 @@
-from models import Base, new_session
+from models import Base
 from tools.utils import generate_uuid
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
-from tools.orm import convert_to_dict
 from datetime import datetime
+from flask import g
 
 
 class Comments(Base):
@@ -27,7 +27,6 @@ class Comments(Base):
     
     @classmethod
     def find_by_note_id(cls, id):
-        session = new_session()
-        comments = session.query(cls).filter(cls.note_id == id).order_by(cls.ct).all()
-        
+        comments = g.my_session.query(cls).filter(cls.note_id == id).order_by(cls.ct).all()
+            # get 可以根据主键id得到实例
         return list(comments)

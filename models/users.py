@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, DateTime
-from models import Base, new_session, Model, engine
+from models import Base
 import datetime
-from flask import flash
+from flask import flash, g
 from werkzeug.security import generate_password_hash, check_password_hash
 from tools.utils import generate_uuid
 
@@ -34,17 +34,13 @@ class User(Base):
     def validate(cls, form):
         name = form.get('username', '')
         password = form.get('password', '')
-        session = new_session()
-        result = session.query(cls).filter(User.user_name == name).first()
-        session.close()
+        
+        result = g.my_session.query(cls).filter(User.user_name == name).first()
+            
         if result is not None:
             if(check_password_hash(result.password, password) == True):
                 return result
         else:
             return None
     
-    
-    @classmethod
-    def get_user_by_id(cls, user_id):
-        pass
         
