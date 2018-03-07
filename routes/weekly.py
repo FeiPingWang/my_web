@@ -5,6 +5,7 @@ from flask import (
     request,
     redirect,
     url_for,
+    g,
 )
 from models.weekly import Weekly
 from models.board import Board
@@ -20,6 +21,7 @@ main = Blueprint('weekly', __name__)
 @main.route('/new', methods=['GET'])
 def new():
     # 返回话题列表
+    logger.info('新建文件')
     topic = Board.get_all_obj()
     return render_template('weekly/new.html', board=topic)
 
@@ -37,7 +39,7 @@ def add():
 def detail(id):
     note = Weekly.find_by_id(id)
     if note is not None:
-        note.views += 1
+        note.incre_views()
     else:
         logger.error('get_obj_by_id is None')
   

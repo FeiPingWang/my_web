@@ -22,7 +22,6 @@ def init_session():
     
 @app.teardown_request
 def remove_session(param):
-    g.my_session.commit()
     Session.remove()
 
 

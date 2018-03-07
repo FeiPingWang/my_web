@@ -8,7 +8,8 @@ from flask import (
     flash,
 )
 from models.users import User
-from tools.utils import current_user_id
+from tools.utils import current_user_id, is_login
+from tools.log import logger
 from models.board import Board
 from models.weekly import Weekly
 
@@ -17,15 +18,12 @@ main = Blueprint('index', __name__)
 
 
 @main.route('/', methods=['GET', 'POST'])
+@is_login
 def index():
-    u = current_user_id()
-    if u == 'null':   # 未登陆
-        return redirect(url_for('index.login'))
-    else:
-        board_list = Board.get_all_obj()
-        # print('board_list ', board_list)
-        note = Weekly.get_all_obj()
-        return render_template('index/index.html', board=board_list, note=note)
+    board_list = Board.get_all_obj()
+    # print('board_list ', board_list)
+    note = Weekly.get_all_obj()
+    return render_template('index/index.html', board=board_list, note=note)
         
 
 @main.route('/login', methods=['GET', 'POST'])
@@ -37,13 +35,16 @@ def login():
         else:
             session['user_id'] = u.id   # u[0] is user_id
             session['user_name'] = u.user_name
+            logger.info('{} success login'.format(u.user_name))
             return redirect(url_for('index.index'))  # 登录成功
     return render_template('index/login.html')
 
 
 @main.route('/logout', methods=['GET'])
+@is_login
 def logout():
     if session['user_id'] and session['user_id'] is not None:
+        logger.info('{} success logout'.format(session['user_name']))
         session.pop('user_id')
         session.pop('user_name')
         return redirect(url_for('index.login'))
