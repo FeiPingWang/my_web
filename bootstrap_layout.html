@@ -2,11 +2,65 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>bootstrap</title>
 	<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css"> 
 	<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap-theme.min.css"> 
 	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	<style>
+		body {
+			background-color: #e1e1e1;
+		}
+		#topic-bar {
+			background-color: #f6f6f6;
+			margin: 1px;
+		}
+		.navbar-inverse {
+			margin-bottom : 5px;
+		}
+		.right-bar {
+			background-color: #f6f6f6;
+			margin-top : 2px;
+			margin-left : -1px;
+			border-left : 2px solid #e6e6e6;
+		}
+		.center-bar {
+			background-color: #f6f6f6;
+			margin-top : 2px;
+			border-right : 2px solid #e6e6e6;
+		}
+		.detail {
+			margin-bottom: 30px;
+			padding: 10px 20px 0;
+		}
+		.detail-header {
+			position: relative;
+			padding-bottom: 5px;
+		}
+		.detail-bottom {
+			position: relative;
+			padding-bottom: 10px;
+			border-bottom: 1px solid #e6e6e6;
+		}
+		.detail-content {
+			position: relative;
+			padding : 10px 0;
+		}
+		.reply {
+			padding : 10px;
+		}
+		.reply-num {
+			padding : 0 10px 0 10px;
+			border-bottom: 1px solid #e6e6e6;
+		}
+		.reply-content {
+			padding : 10px 10px 10px 10px;
+			border-bottom: 1px solid #e6e6e6;
+		}
+}			
+		
+	</style>
 </head>
 <body>
     <div class="container">
@@ -28,34 +82,58 @@
 				</ul>
 			</div>
 		</nav>
-		<ul class="navbar nav-pills">
+		<ul class="nav nav-pills" id="topic-bar">
 			<li><a href="#">SVN</a></li>
 			<li><a href="#">iOS</a></li>
 			<li><a href="#">VB.Net</a></li>
 			<li><a href="#">Java</a></li>
 			<li><a href="#">PHP</a></li>
-
 		</ul>
 		<div id="content" class="row-fluid">
-				<div class="col-md-2">
-					<h2>left</h2>  
+			<div class="col-md-10 center-bar">
+				<div class="detail">
+					<div class="detail-header">
+						<h3>Main Content Section</h3>
+					</div>
+					<div class="detail-bottom">
+						<span>发布于</span>
+						<span>发布于</span>
+						<span>发布于</span>
+					</div>
+					<div class="detail-content">
+						config.js中url已改为:'http://feejohn.com'
+							nginx servername 已设置为feejohn.com	但依然无法通过feejohn.com/ghost登陆进后台,nginx和node甚至服务器都重启过了,但是可以通过服务器ip/ghost登陆进后台,另外后台访问博客和rss等超链接都是链接到localhost如何修改成正确url,弄了好几天都没解决.
+							vps:vultr 
+							系统:Ubuntu16.04
+							node:4.2.0
+							ghost:0.7.4中文版full
+					</div>
+				</div>	
+				<div class="reply">
+					<div class="reply-num">
+						<h4> 2个回复 </h4>
+					</div>
+					<div class="reply-content">
+						<span> 评论1 </span>
+					</div>
+					<div class="reply-content">
+						<span> 评论2 </span>
+					</div>
 				</div>
-				<div class="col-md-8">
-					<h2>Main Content Section</h2>
-					<ul class="pagination">
-						<li><a href="#">«</a></li>
-						<li class="active"><a href="#">1</a></li>
-						<li class="disabled"><a href="#">2</a></li>
-						<li><a href="#">3</a></li>
-						<li><a href="#">4</a></li>
-						<li><a href="#">5</a></li>
-						<li><a href="#">»</a></li>
-					</ul>
-				</div>
-				<div class="col-md-2">
-					<h2>right</h2>  
-				</div>
+				<ul class="pagination">
+					<li><a href="#">«</a></li>
+					<li class="active"><a href="#">1</a></li>
+					<li class="disabled"><a href="#">2</a></li>
+					<li><a href="#">3</a></li>
+					<li><a href="#">4</a></li>
+					<li><a href="#">5</a></li>
+					<li><a href="#">»</a></li>
+				</ul>
 			</div>
+			<div class="col-md-2 right-bar">
+				<h2>right</h2>  
+			</div>
+		</div>
 		</div>
     </div>
 </body>
