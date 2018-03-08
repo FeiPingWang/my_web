@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>bootstrap</title>
+	<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<style>
+		body {
+			background-color: #e1e1e1;
+		}
+		#topic-bar {
+			background-color: #f6f6f6;
+			margin: 1px;
+		}
+		.navbar-inverse {
+			margin-bottom : 5px;
+		}
+		.right-bar {
+			background-color: #f6f6f6;
+			margin-top : 2px;
+			margin-left : -1px;
+			border-left : 2px solid #e6e6e6;
+		}
+		.center-bar {
+			background-color: #f6f6f6;
+			margin-top : 2px;
+			border-right : 2px solid #e6e6e6;
+		}
+		.detail {
+			margin-bottom: 30px;
+			padding: 10px 20px 0;
+		}
+		.detail-header {
+			position: relative;
+			padding-bottom: 5px;
+		}
+		.detail-bottom {
+			position: relative;
+			padding-bottom: 10px;
+			border-bottom: 1px solid #e6e6e6;
+		}
+		.detail-content {
+			position: relative;
+			padding : 10px 0;
+		}
+		.reply {
+			padding : 10px;
+		}
+		.reply-num {
+			padding : 0 10px 0 10px;
+			border-bottom: 1px solid #e6e6e6;
+		}
+		.reply-content {
+			padding : 10px 10px 10px 10px;
+			border-bottom: 1px solid #e6e6e6;
+		}
+}
+
+	</style>
+</head>
+<body>
+    <div class="container">
+		<nav class="navbar navbar-inverse">
+            {% block top %}
+			<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-menu" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#">Brand</a>
+			</div>
+			<div id="navbar-menu" class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#">Home</a></li>
+					<li><a href="#">Page One</a></li>
+					<li><a href="#">Page Two</a></li>
+				</ul>
+			</div>
+            {% endblock top %}
+		</nav>
+		<ul class="nav nav-pills" id="topic-bar">
+            {% block top_plate %}
+            {% endblock top_plate %}
+		</ul>
+		<div id="content" class="row-fluid">
+			<div class="col-md-10 center-bar">
+				{% block center %}
+                    中部
+                {% endblock center %}
+            </div>
+			<div class="col-md-2 right-bar">
+				{% block right %}
+                    右边
+                {% endblock right %}
+			</div>
+		</div>
+    </div>
+</body>
+</html>
