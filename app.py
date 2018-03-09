@@ -1,10 +1,11 @@
-from flask import Flask, g
+from flask import Flask, g, current_app
 import app_config
-from tools.orm import new_session, Session
+from tools.orm import Session
+from app_config import Config
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = app_config.secret_key
+app.config.from_object(Config)
 
 
 from routes.index import main as index_routes
@@ -28,7 +29,7 @@ def remove_session(param):
 if __name__ == '__main__':
     config = dict(
         debug = True,
-        host = app_config.host,
-        port = app_config.port,
+        host = app.config['HOST'],
+        port = app.config['PORT'],
     )
     app.run(**config)

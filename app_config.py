@@ -1,3 +1,8 @@
-host = '127.0.0.1'
-port = 3000
-secret_key = 'my web'
+
+# 工程的配置选项
+class Config():
+    HOST = '127.0.0.1'
+    PORT = 3000
+    SECRET_KEY = 'my web'
+    IMG_PATH = 'static/img'
+    
