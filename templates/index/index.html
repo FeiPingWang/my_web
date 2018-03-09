@@ -1,42 +1,35 @@
 {% extends 'base.html' %}
 {% block title %} 首页 {% endblock %}
 
-{% block nav %}
+{% block top %}
 {{ super() }}
-{% endblock nav %}
+{% endblock top %}
 
-{% block sidebar %}
-    <a href="{{ url_for('weekly.new') }}">新建文章</a>
-{% endblock sidebar %}
+{% block top_plate %}
+    <!--渲染版块-->
+    {% for b in board %}
+        <li><a href="#">{{ b.title }}</a></li>
+    {% endfor %}
+{% endblock top_plate %}
 
-{% block content %}
-    <div class="panel">
-        <div class="header">
-            {% for b in board %}
-                <a href="#" class="topic-tab current-tab">{{ b.title }}</a>
+{% block right %}
+<a href="{{ url_for('weekly.new') }}">新建文章</a>
+{% endblock right %}
+
+{% block center %}
+    <div class="topic-list">
+        <div class="topic-cell">
+            <div class="topic-author-avater">
+                <!--头像-->
+            </div>
+            {% for n in note %}
+                <div class="topic-content">
+                    <h4><a href="{{ url_for('weekly.detail', id=n.id) }}">{{ n.title }}</a></h4>
+                    <p>
+                        默认分类 • {{ n.user_id }}  • {{ n.replys }} 个回复 • {{ n.views }} 次浏览 • {{ n.ct }}
+                    </p>
+                </div>
             {% endfor %}
         </div>
-        <div class="inner no-padding">
-            <div id="topic_list">
-                {% for n in note %}
-                    <div class="cell">
-                        <a class="user_avatar pull-left" href="#">
-                            <img src="/static/img/avater.img" title="StudentWan">
-                        </a>
-                        <span class="reply_count pull-left">
-                        <span class="count_of_replies" title="回复数">{{ n.replys }}</span>
-                        <span class="count_seperator">/</span>
-                        <span class="count_of_visits" title="点击数">{{ n.views }}</span>
-                        </span>
-                        <span class="last_time pull-right">{{ n.ct }}</span>
-
-                        <div class="topic_title_wrapper">
-                            <span class="topiclist-tab">版块</span>
-                            <a class="topic_title" href="{{ url_for('weekly.detail', id=n.id) }}">{{ n.title }}</a>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
     </div>
-{% endblock content %}
+{% endblock center %}

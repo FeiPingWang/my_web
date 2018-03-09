@@ -8,10 +8,12 @@ class Model(object):
     @classmethod
     def new(cls, self):
         g.my_session.add(self)
+        g.my_session.commit()
     
     @classmethod
     def delete(cls, self):
         g.my_session.delete(self)
+        g.my_session.commit()
 
     @classmethod
     def find_by_id(cls, id):

@@ -31,6 +31,7 @@ def add():
     form = request.form
     user_id = current_user_id()
     note = Weekly(form, user_id=user_id)
+    print(note)
     Weekly.new(note)
     return redirect(url_for('index.index'))
 

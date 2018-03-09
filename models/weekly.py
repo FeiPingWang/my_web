@@ -22,7 +22,7 @@ class Weekly(Base):
     def __init__(self, form, user_id):
         self.title = form.get('title', '')
         self.content = form.get('content', '')
-        self.board_id = form.get('board_id', '')
+        self.board_id = form.get('board_id', '-1')
         self.mt = self.ct
         self.user_id = user_id
         
