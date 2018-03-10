@@ -46,3 +46,4 @@ Temporary Items
 *.pyc
 models/my_web.log
 models/__pycache__/__init__.cpython-36.pyc.2500839150296
+my_web.log

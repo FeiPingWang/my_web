@@ -1,6 +1,6 @@
 from flask import Flask, g, current_app
 import app_config
-from tools.orm import Session
+from tools.orm import new_session, Session
 from app_config import Config
 
 

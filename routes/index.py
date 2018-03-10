@@ -6,6 +6,7 @@ from flask import (
     redirect,
     url_for,
     flash,
+    g,
 )
 from models.users import User
 from tools.utils import current_user_id, is_login
@@ -73,6 +74,8 @@ def register():
     if request.method == 'POST':
         form = request.form
         u = User(form)
+        # g.my_session.add(u)
+        # g.my_session.commit()
         User.new(u)
         return redirect(url_for('index.index'))
     return render_template('index/register.html')
