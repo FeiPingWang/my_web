@@ -38,4 +38,5 @@ class Weekly(Base):
     def incre_replys(self):
         self.replys += 1
         g.my_session.commit()
+        
 

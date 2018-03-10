@@ -16,7 +16,7 @@ def is_login(func):
         u = current_user_id()
         if u == 'null':   # 未登陆
             return redirect(url_for('index.login'))
-        return func()
+        return func(*args, **kwargs)
     return wrapper
     
 

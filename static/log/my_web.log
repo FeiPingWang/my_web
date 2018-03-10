@@ -110,3 +110,10 @@
 2018-03-09 23:33:09,149  INFO  weekly.new  Line:27  新建文件
 2018-03-09 23:36:04,186  INFO  index.login  Line:38  wfp success login
 2018-03-09 23:36:05,132  INFO  weekly.new  Line:28  新建文件
+2018-03-10 11:17:28,300  INFO  index.login  Line:40  wfp success login
+2018-03-10 11:17:28,354  INFO  index.login  Line:40  wfp success login
+2018-03-10 12:42:08,897  INFO  weekly.new  Line:29  新建文件
+2018-03-10 12:45:04,476  INFO  index.login  Line:54  wfp success login
+2018-03-10 12:47:38,738  INFO  weekly.add_comment  Line:72  note<0e4a4a0ed5cf4682a9cf80fb59728a14> add comment 
+2018-03-10 12:47:40,645  INFO  weekly.add_comment  Line:72  note<0e4a4a0ed5cf4682a9cf80fb59728a14> add comment 
+2018-03-10 12:47:42,030  INFO  weekly.add_comment  Line:72  note<0e4a4a0ed5cf4682a9cf80fb59728a14> add comment 

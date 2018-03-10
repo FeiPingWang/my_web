@@ -10,6 +10,7 @@ from flask import (
 from models.users import User
 from tools.utils import current_user_id, is_login
 from tools.log import logger
+from tools.pagination import Pagination
 from models.board import Board
 from models.weekly import Weekly
 
@@ -20,11 +21,26 @@ main = Blueprint('index', __name__)
 @main.route('/', methods=['GET', 'POST'])
 @is_login
 def index():
-    board_list = Board.get_all_obj()
-    # print('board_list ', board_list)
-    note = Weekly.get_all_obj()
-    return render_template('index/index.html', board=board_list, note=note)
-        
+    page = request.args.get('page', '1')
+    total = Weekly.get_total_page_num()
+    
+    board_list = Board.get_all_obj(int(page))
+    note = Weekly.get_all_obj(page)
+
+    # 构造文章的分页对象
+    pagination = Pagination(int(page), int(total))
+    return render_template('index/index.html', board=board_list, note=note, pagination=pagination)
+    
+#    返回指定页数的对象
+@main.route('/page/<int:id>/', methods=['GET'])
+def get_page(id):
+    page = id
+    total = Weekly.get_total_page_num()
+    board_list = Board.get_all_obj(page)
+    note = Weekly.get_all_obj(page)
+    pagination = Pagination(int(page), int(total))
+    return render_template('index/index.html', board=board_list, note=note, pagination=pagination)
+
 
 @main.route('/login', methods=['GET', 'POST'])
 def login():

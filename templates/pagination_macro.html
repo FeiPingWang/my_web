@@ -1,0 +1,15 @@
+<!-- 分页宏， 直接在模板中引用即可 -->
+{% macro pagination(pagination) %}
+
+<ul class="pagination">
+    <li{% if not pagination.have_prev %} class="disabled" {% endif %}>
+        <a href="{{ url_for('index.get_page', id=pagination.page - 1) }}">&laquo;</a>
+    </li>
+    {% for p in range(pagination.total_page)  %}
+        <li><a href="{{ url_for('index.get_page', id=p+1) }}">{{ p + 1 }}</a></li>
+    {% endfor %}
+    <li{% if not pagination.have_next %} class="disabled" {% endif %}>
+        <a href="{{ url_for('index.get_page', id=pagination.page + 1) }}">&raquo;</a>
+    </li>
+</ul>
+{% endmacro %}

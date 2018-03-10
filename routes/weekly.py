@@ -27,7 +27,7 @@ main = Blueprint('weekly', __name__)
 def new():
     # 返回话题列表
     logger.info('新建文件')
-    topic = Board.get_all_obj()
+    topic = Board.get_all_obj(1)
     return render_template('weekly/new.html', board=topic)
 
 
@@ -37,6 +37,7 @@ def add():
     user_id = current_user_id()
     note = Weekly(form, user_id=user_id)
     Weekly.new(note)
+    logger.info('add new note id<{}> title<{}>'.format(note.id, note.title))
     return redirect(url_for('index.index'))
 
 
@@ -56,7 +57,7 @@ def detail(id):
     return render_template('weekly/detail.html', note=note, comments=comments, author=author)
 
 
-@main.route('/detail/<id>/add_commit', methods=['POST'])
+@main.route('/detail/add_commit/<id>/', methods=['POST'])
 @is_login
 def add_comment(id):
     content = request.form.get('content', 'null')
@@ -68,6 +69,7 @@ def add_comment(id):
     
     obj = Comments(content, current_user_id(), id)
     Comments.new(obj)
+    logger.info('note<{}> add comment '.format(id))
     return redirect(url_for('weekly.detail', id=id))
 
 
@@ -85,6 +87,7 @@ def upload_img():
         ex = os.path.splitext(file.filename)[1]
         filename = datetime.datetime.now().strftime('%Y%m%d%H%M%S') + ex
         file.save(os.path.join(current_app.config['IMG_PATH'], filename))
+        logger.info('save img {}'.format(filename))
         res = {
             'success' : 1,
             'message' : u'success',

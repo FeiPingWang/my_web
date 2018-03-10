@@ -5,4 +5,5 @@ class Config():
     PORT = 3000
     SECRET_KEY = 'my web'
     IMG_PATH = 'static/img'
+    PER_PAG_NUM = 5
     
