@@ -6,9 +6,8 @@ from flask import g, current_app
 class Model(object):
 
     @classmethod
-    def new(cls, obj):
-        print(g.my_session)
-        g.my_session.add(obj)
+    def new(cls, self):
+        g.my_session.add(self)
         g.my_session.commit()
     
     @classmethod

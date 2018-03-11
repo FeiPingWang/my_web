@@ -21,7 +21,6 @@ def is_login(func):
     
 
 # 返回独一无二的id
-@is_login
 def generate_uuid():
     return uuid.uuid4().hex
 

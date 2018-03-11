@@ -50,7 +50,7 @@ def login():
         if u is None:
             flash('找不到用户名')
         else:
-            session['user_id'] = u.id   # u[0] is user_id
+            session['user_id'] = u.id
             session['user_name'] = u.user_name
             logger.info('{} success login'.format(u.user_name))
             return redirect(url_for('index.index'))  # 登录成功
@@ -62,8 +62,6 @@ def login():
 def logout():
     if session['user_id'] and session['user_id'] is not None:
         logger.info('{} success logout'.format(session['user_name']))
-        session.pop('user_id')
-        session.pop('user_name')
         return redirect(url_for('index.login'))
     else:
         return flash('还未登录')
@@ -74,9 +72,8 @@ def register():
     if request.method == 'POST':
         form = request.form
         u = User(form)
-        # g.my_session.add(u)
-        # g.my_session.commit()
         User.new(u)
+        logger.info('{} success register'.format(u.user_name))
         return redirect(url_for('index.index'))
     return render_template('index/register.html')
 
