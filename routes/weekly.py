@@ -32,6 +32,7 @@ def new():
 
 
 @main.route('/add', methods=['POST'])
+@is_login
 def add():
     form = request.form
     user_id = current_user_id()
@@ -41,7 +42,7 @@ def add():
     return redirect(url_for('index.index'))
 
 
-@main.route('/detail/<id>')
+@main.route('/detail/<id>/')
 def detail(id):
     note = Weekly.find_by_id(id)
     if note is not None:
@@ -50,14 +51,28 @@ def detail(id):
         logger.error('get_obj_by_id is None')
   
     # 根据用户Id，查找作者
-    author = User.find_by_id(current_user_id()).user_name
+    author = User.find_by_id(note.user_id).user_name
     
     # 根据文章id，查找其所有评论
     comments = Comments.find_by_note_id(id)
     return render_template('weekly/detail.html', note=note, comments=comments, author=author)
 
 
-@main.route('/detail/add_commit/<id>/', methods=['POST'])
+@main.route('/delete/<id>')
+def delete(id):
+    note = Weekly.find_by_id(id)
+    title = note.title
+    Weekly.delete(note)
+    logger.info('note {} delete success'.format(title))
+    return redirect(url_for('index.index'))
+    
+
+@main.route('/edit/<id>')
+def edit(id):
+    pass
+
+
+@main.route('/detail/add_commit/<id>', methods=['POST'])
 @is_login
 def add_comment(id):
     content = request.form.get('content', 'null')

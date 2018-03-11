@@ -30,7 +30,7 @@ def index():
 
     # 构造文章的分页对象
     pagination = Pagination(int(page), int(total))
-    return render_template('index/index.html', board=board_list, note=note, pagination=pagination)
+    return render_template('index/index.html', board=board_list, note=note, pagination=pagination, User=User)
     
 #    返回指定页数的对象
 @main.route('/page/<int:id>/', methods=['GET'])
@@ -40,7 +40,7 @@ def get_page(id):
     board_list = Board.get_all_obj(page)
     note = Weekly.get_all_obj(page)
     pagination = Pagination(int(page), int(total))
-    return render_template('index/index.html', board=board_list, note=note, pagination=pagination)
+    return render_template('index/index.html', board=board_list, note=note, pagination=pagination, User=User)
 
 
 @main.route('/login', methods=['GET', 'POST'])

@@ -156,3 +156,25 @@
 2018-03-11 11:13:33,589  INFO  index.login  Line:56  wfp success login
 2018-03-11 11:13:34,601  INFO  index.logout  Line:65  wfp success logout
 2018-03-11 11:16:38,511  INFO  index.logout  Line:65  wfp success logout
+2018-03-11 11:37:50,487  INFO  index.login  Line:55  pxx success login
+2018-03-11 11:37:51,696  INFO  weekly.new  Line:29  新建文件
+2018-03-11 11:37:59,862  INFO  weekly.add  Line:40  add new note id<4536a23aa0ae4944bf2eadc23bbd6a90> title<测试作者>
+2018-03-11 11:54:38,071  INFO  index.login  Line:55  pxx success login
+2018-03-11 12:31:42,268  INFO  weekly.new  Line:29  新建文件
+2018-03-11 12:31:52,358  INFO  weekly.add  Line:40  add new note id<3bceb1dbc4ab45f1a7952017d5a3c6e3> title<测试删除>
+2018-03-11 12:33:46,857  INFO  index.login  Line:55  wfp success login
+2018-03-11 12:42:52,525  INFO  weekly.new  Line:29  新建文件
+2018-03-11 12:43:42,811  INFO  weekly.new  Line:29  新建文件
+2018-03-11 12:44:25,109  INFO  index.register  Line:76  wfp success register
+2018-03-11 12:44:27,311  INFO  index.login  Line:55  wfp success login
+2018-03-11 12:44:29,170  INFO  weekly.new  Line:29  新建文件
+2018-03-11 12:44:39,287  INFO  weekly.add  Line:41  add new note id<6cdde19b50fb485ca09900010fb8a0aa> title<delete>
+2018-03-11 12:44:43,970  INFO  weekly.add_comment  Line:82  note<6cdde19b50fb485ca09900010fb8a0aa> add comment 
+2018-03-11 12:44:45,072  INFO  weekly.add_comment  Line:82  note<6cdde19b50fb485ca09900010fb8a0aa> add comment 
+2018-03-11 12:44:46,134  INFO  weekly.delete  Line:66  note delete delete success
+2018-03-11 12:45:02,586  INFO  weekly.new  Line:29  新建文件
+2018-03-11 12:45:11,183  INFO  weekly.add  Line:41  add new note id<7bd263b030a240fc892ad7b9857246ff> title<delete>
+2018-03-11 12:45:13,955  INFO  weekly.add_comment  Line:82  note<7bd263b030a240fc892ad7b9857246ff> add comment 
+2018-03-11 12:45:14,855  INFO  weekly.add_comment  Line:82  note<7bd263b030a240fc892ad7b9857246ff> add comment 
+2018-03-11 12:45:15,598  INFO  weekly.add_comment  Line:82  note<7bd263b030a240fc892ad7b9857246ff> add comment 
+2018-03-11 12:45:25,945  INFO  weekly.delete  Line:66  note delete delete success
