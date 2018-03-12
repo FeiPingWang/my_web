@@ -9,6 +9,7 @@ from flask import (
     g,
 )
 from models.users import User
+from models.web_view import Web_View
 from tools.utils import current_user_id, is_login
 from tools.log import logger
 from tools.pagination import Pagination
@@ -22,6 +23,7 @@ main = Blueprint('index', __name__)
 @main.route('/', methods=['GET', 'POST'])
 @is_login
 def index():
+    Web_View.incre_views()
     page = request.args.get('page', '1')
     total = Weekly.get_total_page_num()
     
@@ -30,7 +32,7 @@ def index():
 
     # 构造文章的分页对象
     pagination = Pagination(int(page), int(total))
-    return render_template('index/index.html', board=board_list, note=note, pagination=pagination, User=User)
+    return render_template('index/index.html', board=board_list, note=note, pagination=pagination)
     
 #    返回指定页数的对象
 @main.route('/page/<int:id>/', methods=['GET'])

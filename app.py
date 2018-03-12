@@ -1,6 +1,5 @@
-from flask import Flask, g, current_app
-import app_config
-from tools.orm import new_session, Session
+from flask import Flask, g
+from tools.orm import Session
 from app_config import Config
 
 
@@ -14,6 +13,24 @@ from routes.weekly import main as weekly_routes
 
 app.register_blueprint(index_routes)
 app.register_blueprint(weekly_routes, url_prefix='/weekly')
+
+
+from models.users import User
+from models.web_view import Web_View
+from models.board import Board
+from models.weekly import Weekly
+from models.conmments import Comments
+
+
+# 把dict中的变量加入到jinja2的上下文，在所有模板中都可见
+@app.context_processor
+def all_modules():
+    return dict(User=User,
+                Board=Board,
+                Weekly=Weekly,
+                Web_View=Web_View,
+                Comments=Comments,
+                )
 
 
 @app.before_request

@@ -8,9 +8,15 @@
 		.navbar-inverse {
 			margin-bottom : 5px;
 		}
-		.right-bar {
+		.right-bar-top {
 			background-color: #ffffff;
 			margin-top : 2px;
+			margin-left : -1px;
+			border-left : 2px solid #e6e6e6;
+		}
+	    .right-bar-center {
+			background-color: #ffffff;
+			margin-top : 10px;
 			margin-left : -1px;
 			border-left : 2px solid #e6e6e6;
 		}

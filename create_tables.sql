@@ -6,6 +6,7 @@ DROP TABLE Comments;
 DROP TABLE Week_Note;
 DROP TABLE User;
 DROP TABLE Board;
+DROP TABLE Web_View;
 
 
 create table User (
@@ -35,6 +36,13 @@ CREATE TABLE Week_Note (
 CREATE TABLE Board (
   id INT         NOT NULL PRIMARY KEY AUTO_INCREMENT,
   title    VARCHAR(50) NOT NULL
+)DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE Web_View (
+  id INT         NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  title    VARCHAR(50) NOT NULL,
+  views INT NOT NULL
 )DEFAULT CHARSET=utf8;
 
 
@@ -70,4 +78,10 @@ INSERT INTO Board(title) VALUES
 ),
 (
   '随笔'
+);
+
+insert into Web_View(title, views) values
+(
+    '王飞平的网站',
+    0
 )

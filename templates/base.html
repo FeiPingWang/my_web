@@ -44,12 +44,17 @@
                     中部
                 {% endblock center %}
             </div>
-			<div class="col-lg-2 right-bar">
-				{% block right %}
+            <div class="col-lg-2 right-bar-top">
+                {% block right_top %}
                     右边
-                {% endblock right %}
-			</div>
+                {% endblock right_top %}
+            </div>
+            <div class="col-lg-2 right-bar-center">
+                {% block right_center %}
+                {% endblock right_center %}
+            </div>
 		</div>
+
     </div>
 
 <script>

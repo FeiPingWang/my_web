@@ -13,9 +13,18 @@
     {% endfor %}
 {% endblock top_plate %}
 
-{% block right %}
+{% block right_top %}
+<!-- 博客的信息 -->
+<P>
+    {{ g.my_session.query(Web_View).first().views }}次浏览</P>
+    {{ g.my_session.query(Weekly).count() }}篇文章</P>
+    {{ g.my_session.query(Comments).count() }}次回复</P>
+</P>
+{% endblock right_top %}
+
+{% block right_center %}
 <a href="{{ url_for('weekly.new') }}">新建文章</a>
-{% endblock right %}
+{% endblock right_center %}
 
 {% block center %}
     <div class="topic-list">

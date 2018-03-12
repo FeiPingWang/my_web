@@ -14,6 +14,7 @@ from models.weekly import Weekly
 from models.board import Board
 from models.users import User
 from models.conmments import Comments
+from models.web_view import Web_View
 from tools.utils import current_user_id, is_login
 from tools.log import logger
 import os, datetime
@@ -44,6 +45,7 @@ def add():
 
 @main.route('/detail/<id>/')
 def detail(id):
+    Web_View.incre_views()
     note = Weekly.find_by_id(id)
     if note is not None:
         note.incre_views()
