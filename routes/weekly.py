@@ -61,6 +61,7 @@ def detail(id):
 
 
 @main.route('/delete/<id>')
+@is_login
 def delete(id):
     note = Weekly.find_by_id(id)
     title = note.title
@@ -70,6 +71,7 @@ def delete(id):
     
 
 @main.route('/edit/<id>', methods=['GET', 'POST'])
+@is_login
 def edit(id):
     old_note = Weekly.find_by_id(id)
     content = request.form.get('content', '')
