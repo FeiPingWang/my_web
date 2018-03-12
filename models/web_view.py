@@ -5,7 +5,7 @@ from flask import g
 
 # 论坛的版块
 class Web_View(Base):
-    __tablename__ = 'web_view'
+    __tablename__ = 'Web_View'
 
     id = Column(Integer, primary_key=True, nullable=False)
     title = Column(String(50), nullable=False)
