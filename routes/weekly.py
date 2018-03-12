@@ -67,9 +67,21 @@ def delete(id):
     return redirect(url_for('index.index'))
     
 
-@main.route('/edit/<id>')
+@main.route('/edit/<id>', methods=['GET', 'POST'])
 def edit(id):
-    pass
+    old_note = Weekly.find_by_id(id)
+    content = request.form.get('content', '')
+    # 如果为空字符串，表示还没有提交更改
+    if content is '':
+        topic = Board.get_all_obj(1)
+        author = User.find_by_id(old_note.user_id).user_name
+        comments = Comments.find_by_note_id(id)
+        return render_template('weekly/edit.html', note=old_note, comments=comments, author=author, board=topic)
+    else:
+        # 更新数据库
+        new_note = Weekly(request.form, old_note.user_id)
+        Weekly.update(old_note, new_note)
+        return redirect(url_for('weekly.detail', id=id))
 
 
 @main.route('/detail/add_commit/<id>', methods=['POST'])

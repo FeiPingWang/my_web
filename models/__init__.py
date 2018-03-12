@@ -16,6 +16,13 @@ class Model(object):
         g.my_session.commit()
 
     @classmethod
+    def update(cls, old, new):
+        for name, value in vars(new).items():
+            if name != 'id' and name != '_sa_instance_state':
+                setattr(old, name, value)
+        g.my_session.commit()
+
+    @classmethod
     def find_by_id(cls, id):
         obj = g.my_session.query(cls).filter(cls.id == id).first()
         return obj

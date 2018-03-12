@@ -1,23 +1,23 @@
 {% extends 'base.html' %}
-{% block title %} 发表文章 {% endblock %}
+{% block title %} 编辑文章 {% endblock %}
 
 {% block top %}
 {{ super() }}
 {% endblock top %}
 
 {% block center %}
-    <form class="form-horizontal" role="form" id="new-note" action="{{ url_for('.add') }}" method="post">
+    <form class="form-horizontal" role="form" id="new-note" action="{{ url_for('weekly.edit', id=note.id) }}" method="post">
         <div class="form-group">
             <label for="title" class="col-lg-1 control-label">标题</label>
             <div class="col-lg-8">
-                <input type="text" class="form-control" name='title' placeholder="请输入标题">
+                <input type="text" id="note-title" class="form-control" name='title' placeholder="输入标题">
                 </input>
             </div>
         </div>
         <div class="form-group">
             <label for="board" class="col-lg-1 control-label" >版块</label>
             <div class="col-lg-4">
-                <select class="form-control" name="board_id" required>
+                <select class="form-control" id="board_id" name="board_id" required>
                     <option value="">请选择</option>
                     {% for b in board %}
                         <option value="{{ b.id }}">{{ b.title }}</option>
@@ -28,7 +28,7 @@
         <div class="form-group">
             <label for="board" class="col-lg-1 control-label" >正文</label>
             <div id="markdown" class="editor_markdown col-lg-10">
-                <textarea style="display:none;" name="content"></textarea>
+                <textarea style="display:none;" id="note-text" name="content"></textarea>
             </div>
         </div>
         <div class="form-group" >
@@ -40,8 +40,13 @@
 {% endblock center %}
 
 {% block script %}
-    var testEditor;
 
+    (function(){
+        $("#note-title").val("{{ note.title }}")
+        $("#note-text").text("{{ note.content }}")
+    })();
+
+    var testEditor;
     $(function() {
         testEditor = editormd("markdown", {
             width: "70%",

@@ -15,7 +15,7 @@
                 发表时间 {{ note.ct }} •  作者 {{ author }} • 浏览 {{ note.views }}次 / 回复 {{ note.replys }}
                 {% if session['user_name'] == author %}
                 <div class="text-right">
-
+                    <a class="btn btn-info" href={{ url_for('weekly.edit', id=note.id) }} >编辑</a>
                     <a class="btn btn-danger" href={{ url_for('weekly.delete', id=note.id) }} >删除</a>
                 </div>
                 {% endif %}
@@ -69,4 +69,5 @@
         markdown_text = md.render(content);
         $('.markdown-text').html(markdown_text);
     })
+
 {% endblock script %}
