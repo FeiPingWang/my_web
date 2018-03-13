@@ -1,5 +1,6 @@
 from sqlalchemy.ext.declarative import declarative_base, declared_attr
 from flask import g, current_app
+from tools.log import logger
 
 
 # 基类
@@ -7,13 +8,23 @@ class Model(object):
 
     @classmethod
     def new(cls, self):
-        g.my_session.add(self)
-        g.my_session.commit()
+        try:
+            g.my_session.add(self)
+        except:
+            logger.error('g.my_session add error, rollback')
+            g.my_session.rollback()
+        else:
+            g.my_session.commit()
     
     @classmethod
     def delete(cls, self):
-        g.my_session.delete(self)
-        g.my_session.commit()
+        try:
+            g.my_session.delete(self)
+        except:
+            logger.error('g.my_session delete error, rollback')
+            g.my_session.rollback()
+        else:
+            g.my_session.commit()
 
     @classmethod
     def update(cls, old, new):
