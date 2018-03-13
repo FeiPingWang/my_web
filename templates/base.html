@@ -40,9 +40,20 @@
 		</ul>
 		<div id="content" class="row-fluid">
 			<div class="col-lg-10 center-bar">
-				{% block center %}
-                    中部
-                {% endblock center %}
+                <div class="article">
+                    {% for category, message in get_flashed_messages(with_categories=true) %}
+                        <div class="alert alert-{{ category }} alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="center">
+                    {% block center %}
+                        中部
+                    {% endblock center %}
+                </div>
+
             </div>
             <div class="col-lg-2 right-bar-top">
                 {% block right_top %}
@@ -54,7 +65,6 @@
                 {% endblock right_center %}
             </div>
 		</div>
-
     </div>
 
 <script>

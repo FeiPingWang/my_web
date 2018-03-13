@@ -7,6 +7,7 @@ from flask import (
     url_for,
     g,
     jsonify,
+    flash,
     make_response,
     current_app,
 )
@@ -39,6 +40,7 @@ def add():
     user_id = current_user_id()
     note = Weekly(form, user_id=user_id)
     Weekly.new(note)
+    flash('发表文章成功', 'success')
     logger.info('add new note id<{}> title<{}>'.format(note.id, note.title))
     return redirect(url_for('index.index'))
 

@@ -29,10 +29,10 @@ def index():
     
     board_list = Board.get_all_obj(int(page))
     note = Weekly.get_all_obj(page)
-
     # 构造文章的分页对象
     pagination = Pagination(int(page), int(total))
     return render_template('index/index.html', board=board_list, note=note, pagination=pagination)
+
     
 #    返回指定页数的对象
 @main.route('/page/<int:id>/', methods=['GET'])
@@ -50,11 +50,12 @@ def login():
     if request.method == 'POST':
         u = User.validate(request.form)
         if u is None:
-            flash('找不到用户名')
+            flash('找不到用户或密码错误', 'danger')
         else:
             session['user_id'] = u.id
             session['user_name'] = u.user_name
             logger.info('{} success login'.format(u.user_name))
+            flash('登陆成功', 'success')
             return redirect(url_for('index.index'))  # 登录成功
     return render_template('index/login.html')
 
@@ -76,6 +77,7 @@ def register():
         u = User(form)
         User.new(u)
         logger.info('{} success register'.format(u.user_name))
+        flash('注册成功', 'success')
         return redirect(url_for('index.index'))
     return render_template('index/register.html')
 
