@@ -7,6 +7,7 @@ from flask import (
     url_for,
     flash,
     g,
+    current_app
 )
 from models.users import User
 from models.web_view import Web_View
@@ -15,6 +16,8 @@ from tools.log import logger
 from tools.pagination import Pagination
 from models.board import Board
 from models.weekly import Weekly
+import os
+import random, string
 
 
 main = Blueprint('index', __name__)
@@ -33,7 +36,30 @@ def index():
     pagination = Pagination(int(page), int(total))
     return render_template('index/index.html', board=board_list, note=note, pagination=pagination)
 
-    
+
+@main.route('/manager', methods=['GET', 'POST'])
+@is_login
+def avater_upload():
+    if request.method == 'GET':
+        return render_template('index/manager.html')
+    else:
+        file = request.files['file']
+        file_name = file.filename
+        ext = file_name.rsplit('.', 1)[1]  # 获取文件后缀
+        file_dir = current_app.config['AVATER_IMG_PATH']
+        if not os.path.exists(file_dir):
+            os.makedirs(file_dir)
+        # 将文件名用随机字符串代替
+        salt = ''.join(random.sample(string.ascii_letters + string.digits, 12))
+        save_name = salt + '.' + ext
+        file.save(os.path.join(file_dir,str(save_name)))
+        flash('上传头像成功', 'success')
+
+        # 将头像信息写入User表
+        user_id = current_user_id()
+        User.update_avater(user_id, save_name)
+    return redirect(url_for('index.index'))
+
 #    返回指定页数的对象
 @main.route('/page/<int:id>/', methods=['GET'])
 def get_page(id):

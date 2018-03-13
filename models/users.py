@@ -1,9 +1,10 @@
 from sqlalchemy import Column, Integer, String, DateTime
 from models import Base
 import datetime
-from flask import flash, g
+from flask import flash, g, current_app
 from werkzeug.security import generate_password_hash, check_password_hash
 from tools.utils import generate_uuid
+import os
 
 
 # 用户表
@@ -13,6 +14,7 @@ class User(Base):
     id = Column(String(32), default=generate_uuid, primary_key=True, nullable=False)
     user_name = Column(String(20), nullable=False)
     password = Column(String(100), nullable=False)
+    avater_hash = Column(String(32))
     phone = Column(String(20))
     email = Column(String(30))
     brief = Column(String(140), default='new guy')
@@ -43,4 +45,18 @@ class User(Base):
         else:
             return None
     
-        
+    @classmethod
+    def update_avater(cls, id, avate_name):
+        u = g.my_session.query(cls).filter(User.id == id).first()
+        print('old name ', u.avater_hash)
+        if not u.avater_hash is None:
+            # 事先有老的头像
+            old_avater = os.path.join(current_app.config['AVATER_IMG_PATH'], u.avater_hash)
+            print(old_avater)
+            try:
+                os.remove(old_avater)
+            except:
+                pass
+        u.avater_hash = avate_name
+        g.my_session.commit()
+        return 'success'

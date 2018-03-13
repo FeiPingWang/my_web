@@ -13,6 +13,7 @@ create table User (
   id   VARCHAR(32)  NOT NULL PRIMARY KEY,
   user_name VARCHAR(20)  NOT NULL,
   password  VARCHAR(100) NOT NULL,
+  avater_hash VARCHAR(32),
   phone     VARCHAR(20),
   email     VARCHAR(30),
   brief     VARCHAR(140) DEFAULT '介绍下自己吧',
