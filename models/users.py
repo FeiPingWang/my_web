@@ -31,7 +31,13 @@ class User(Base):
         return "<User(id='{}', name='{}', email='{}', brief='{}')>".format(
             self.id, self.user_name, self.email, self.brief
         )
-    
+
+    def check_username_occupy(self):
+        u = g.my_session.query(User).filter(User.user_name == self.user_name).first()
+        if u is not None:
+            return False
+        return True
+
     @classmethod
     def validate(cls, form):
         name = form.get('username', '')

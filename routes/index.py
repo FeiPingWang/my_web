@@ -101,9 +101,13 @@ def register():
     if request.method == 'POST':
         form = request.form
         u = User(form)
-        User.new(u)
-        logger.info('{} success register'.format(u.user_name))
-        flash('注册成功', 'success')
-        return redirect(url_for('index.index'))
+        # 验证用户是否合法
+        if u.check_username_occupy():
+            User.new(u)
+            logger.info('{} success register'.format(u.user_name))
+            flash('注册成功', 'success')
+            return redirect(url_for('index.index'))
+        else:
+            flash('用户名被占用，请重新输入', 'warning')
     return render_template('index/register.html')
 
