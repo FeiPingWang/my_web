@@ -13,13 +13,29 @@
     {% endfor %}
 {% endblock top_plate %}
 
-{% block right_top %}
 <!-- 博客的信息 -->
-<P>
-    {{ g.my_session.query(Web_View).first().views }}次浏览</P>
-    {{ g.my_session.query(Weekly).count() }}篇文章</P>
-    {{ g.my_session.query(Comments).count() }}次回复</P>
-</P>
+{% block right_top %}
+    <h5>
+        <strong>
+            网站统计
+        </strong>
+    </h5>
+    <p>
+        "访问量: "
+        <span class="badge">
+            {{ g.my_session.query(Web_View).first().views }}</P>
+        </span>
+    </p>
+    <p>
+        "文章总数: "
+        <span class="badge">
+            {{ g.my_session.query(Weekly).count() }}
+        </span>
+        "评论总数: "
+        <span class="badge">
+            {{ g.my_session.query(Comments).count() }}
+        </span>
+    </p>
 {% endblock right_top %}
 
 {% block right_center %}
@@ -28,11 +44,15 @@
 
 {% block center %}
     <div class="topic-list">
-        <div class="topic-cell">
-            <div class="topic-author-avater">
-                <!--头像-->
-            </div>
-            {% for n in note %}
+        {% set path='img/avater/' %}
+         {% for n in note %}
+            <div class="topic-cell">
+                <a class="user-avater" href="#">
+                    {% set avater_path = g.my_session.query(User.avater_hash).filter(User.id == n.user_id).first()[0] %}
+                    <img class="title-avater"  height="40px" width="40px"
+                         src="{{ url_for('static', filename='img/avater/' ~ avater_path) }}"
+                    >
+                </a>
                 <div class="topic-content">
                     <h4><a href="{{ url_for('weekly.detail', id=n.id) }}">{{ n.title }}</a></h4>
                     <p>
@@ -40,8 +60,8 @@
                         • {{ n.replys }} 个回复 • {{ n.views }} 次浏览 • {{ n.ct }}
                     </p>
                 </div>
-            {% endfor %}
-        </div>
+            </div>
+        {% endfor %}
     </div>
     <!-- 导入 -->
     {{ macros.pagination(pagination) }}

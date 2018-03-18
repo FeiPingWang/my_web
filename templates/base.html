@@ -40,7 +40,7 @@
             {% endblock top_plate %}
 		</ul>
 		<div id="content" class="row-fluid">
-			<div class="col-lg-10 center-bar">
+			<div class="col-lg-9 center-bar">
                 <div class="article">
                     {% for category, message in get_flashed_messages(with_categories=true) %}
                         <div class="alert alert-{{ category }} alert-dismissable">
@@ -56,12 +56,12 @@
                 </div>
 
             </div>
-            <div class="col-lg-2 right-bar-top">
+            <div class="col-lg-3 right-bar-top">
                 {% block right_top %}
                     右边
                 {% endblock right_top %}
             </div>
-            <div class="col-lg-2 right-bar-center">
+            <div class="col-lg-3 right-bar-center">
                 {% block right_center %}
                 {% endblock right_center %}
             </div>

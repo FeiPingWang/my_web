@@ -69,6 +69,3 @@ class Model(object):
 # 提供给具体的model继承
 Base = declarative_base(cls=Model)
 
-
-if __name__ == '__main__':
-    print(1/4)
