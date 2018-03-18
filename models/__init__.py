@@ -57,8 +57,7 @@ class Model(object):
         
         divisor = int(obj / per_num)
         remainder = obj % per_num
-        
-        if divisor < 1:
+        if divisor <= 1:
             return 1
         elif divisor > 1 and remainder == 0:
             return divisor

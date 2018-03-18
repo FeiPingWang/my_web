@@ -23,7 +23,7 @@
     <p>
         "访问量: "
         <span class="badge">
-            {{ g.my_session.query(Web_View).first().views }}</P>
+            {{ g.my_session.query(Web_View).first().views }}
         </span>
     </p>
     <p>
@@ -64,5 +64,7 @@
         {% endfor %}
     </div>
     <!-- 导入 -->
-    {{ macros.pagination(pagination) }}
+    {% if pagination.total_page > 1 %}
+        {{ macros.pagination(pagination) }}
+    {% endif %}
 {% endblock center %}

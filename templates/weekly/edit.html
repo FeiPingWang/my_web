@@ -42,6 +42,9 @@
 {% block script %}
 
     (function(){
+        var test = "{{ note.content }}"
+        //var t = test.replace(/[\r\n]/g,"<br>"))
+        //console.log( "{{ note.content }}" )
         $("#note-title").val("{{ note.title }}")
         $("#note-text").text("{{ note.content }}")
     })();

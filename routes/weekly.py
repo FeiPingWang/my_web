@@ -40,7 +40,6 @@ def add():
     user_id = current_user_id()
     note = Weekly(form, user_id=user_id)
     Weekly.new(note)
-    print('contetn ', note.content)
     flash('发表文章成功', 'success')
     logger.info('add new note id<{}> title<{}>'.format(note.id, note.title))
     return redirect(url_for('index.index'))
