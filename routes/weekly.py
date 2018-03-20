@@ -67,8 +67,8 @@ def detail(id):
 def delete(id):
     note = Weekly.find_by_id(id)
     title = note.title
-    Weekly.delete(note)
     logger.info('note {} delete success'.format(title))
+    Weekly.delete(note)
     return redirect(url_for('index.index'))
     
 

@@ -2,76 +2,143 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}bootstrap{% endblock title %}</title>
-	<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
-	<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="/static/css/my_web.css">
-    <link rel="stylesheet" href="/static/editormd/css/editormd.min.css"/>
-	<script src="/static/js/jquery.min.js"></script>
-	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="/static/js/markdownit.js"></script>
-    <script src="/static/editormd/editormd.min.js"></script>
+    <title>
+        {% block title %}bootstrap{% endblock title %}
+    </title>
+    {% block stylesheet %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/my_web.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/money_free.css') }}">
+    {% endblock stylesheet %}
 </head>
 <body>
-    <div class="container">
-		<nav class="navbar navbar-inverse">
-            {% block top %}
-			<div class="navbar-header">
-			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-menu" aria-expanded="false">
-				<span class="sr-only">Toggle navigation</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="{{ url_for('index.index') }}">主页</a>
-			</div>
-			<div id="navbar-menu" class="collapse navbar-collapse">
-				<ul class="nav navbar-nav">
-                    <li><a href="{{ url_for('index.avater_upload') }}">个人中心</a></li>
-					<li class="active"><a href="{{ url_for('index.login') }}">登录</a></li>
-					<li><a href="{{ url_for('index.register') }}">注册</a></li>
-					<li><a href="{{ url_for('index.logout') }}">退出</a></li>
+<header>
+    <div class="header-top">
+        <div class="container">
+            <h3 class="web-title"><a href="{{ url_for('index.index') }}">{{ g.my_session.query(Web_View).first().title }}</a></h3>
+            <p class="web-signature">
+                越努力，越幸福
+            </p>
+        </div>
+    </div>
+    <!--头部导航栏-->
+    <nav class="navbar navbar-inverse" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-menu" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div id="navbar-menu" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="{{ url_for('index.index') }}"><span class="glyghicon glyghicon-home">首页</span></a></li>
+                    <li class="dropdown">
+                        <!--板块文章-->
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">板块<b
+                        class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            {% for b in g.my_session.query(Board).all() %}
+                               <li>
+                                   <a href="#">{{ b.title }}</a>
+                               </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <!--博客管理-->
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">博客管理<b
+                        class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="{{ url_for('weekly.new') }}">发表文章</a>
+                            </li>
+                        </ul>
+                    </li>
 				</ul>
-			</div>
-            {% endblock top %}
-		</nav>
-		<ul class="nav nav-pills" id="topic-bar">
-            {% block top_plate %}
-            {% endblock top_plate %}
-		</ul>
-		<div id="content" class="row-fluid">
-			<div class="col-lg-9 center-bar">
-                <div class="article">
+                <ul class="nav navbar-nav navbar-right">
+                    <!--这里应该增加判断是否登录-->
+                    <!--用户管理-->
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">当前用户<b
+                        class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ url_for('index.person_info') }}">个人中心</a></li>
+                            <li><a href="{{ url_for('index.login') }}">登录</a></li>
+                            <li><a href="{{ url_for('index.register') }}">注册</a></li>
+                            <li><a href="{{ url_for('index.logout') }}">退出</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+{% block content %}
+    <div class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 center">
+                    <!--提示框-->
                     {% for category, message in get_flashed_messages(with_categories=true) %}
                         <div class="alert alert-{{ category }} alert-dismissable">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                             {{ message }}
                         </div>
                     {% endfor %}
-                </div>
-                <div class="center">
+
                     {% block center %}
-                        中部
+                    <!--填充中央界面-->
                     {% endblock center %}
                 </div>
-
+                <div class="col-lg-4 right">
+                    <!--侧边栏-->
+                    {% block right %}
+                        <div class="entry-box">
+                            <h5>
+        <strong>
+            网站统计
+        </strong>
+    </h5>
+                            <p>
+                                "访问量: "
+                                <span class="badge">
+                                    {{ g.my_session.query(Web_View).first().views }}
+                                </span>
+                            </p>
+                            <p>
+                            "文章总数: "
+                            <span class="badge">
+                                {{ g.my_session.query(Weekly).count() }}
+                            </span>
+                            "评论总数: "
+                            <span class="badge">
+                                {{ g.my_session.query(Comments).count() }}
+                            </span>
+                        </p>
+                        </div>
+                    {% endblock right %}
+                </div>
             </div>
-            <div class="col-lg-3 right-bar-top">
-                {% block right_top %}
-                    右边
-                {% endblock right_top %}
-            </div>
-            <div class="col-lg-3 right-bar-center">
-                {% block right_center %}
-                {% endblock right_center %}
-            </div>
-		</div>
+        </div>
     </div>
+{% endblock content %}
 
-<script>
+<div class="footer">
+    <p class="footer-content">
+        @2018
+        <a href="#">王飞平的网站</a>
+        -为自由
+    </p>
+</div>
+
 {% block script %}
+    <script src="{{ url_for('static', filename='js/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
 {% endblock script %}
-</script>
 
 </body>
 </html>

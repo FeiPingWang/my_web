@@ -55,7 +55,7 @@ class Model(object):
         per_num = current_app.config['PER_PAG_NUM']
         obj = g.my_session.query(cls).count()
         
-        divisor = int(obj / per_num)
+        divisor = obj / per_num
         remainder = obj % per_num
         if divisor <= 1:
             return 1

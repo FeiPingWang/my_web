@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy import Column, Integer, String, DateTime, Boolean
 from models import Base
 import datetime
 from flask import flash, g, current_app
@@ -15,6 +15,7 @@ class User(Base):
     user_name = Column(String(20), nullable=False)
     password = Column(String(100), nullable=False)
     avater_hash = Column(String(32), default='default.jpg')
+    is_admin = Column(Boolean, default=False)
     phone = Column(String(20))
     email = Column(String(30))
     brief = Column(String(140), default='new guy')

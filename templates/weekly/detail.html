@@ -1,11 +1,9 @@
 {% extends 'base.html' %}
-{% block title %} 首页 {% endblock %}
+{% block title %} {{ note.title }} {% endblock %}
 
-{% block top %}
-{{ super() }}
-{% endblock top %}
 
 {% block center %}
+<div class="entry-box">
     <div class="detail">
         <div class="detail-header">
             <h3>{{ note.title }}</h3>
@@ -21,8 +19,8 @@
                 {% endif %}
             </p>
         </div>
-        <div class="detail-content markdown-text">
-            {{ note.content }}
+        <div class="detail-content">
+            {{ note.content | safe }}
         </div>
     </div>
     <div class="reply">
@@ -54,20 +52,5 @@
         </div>
         {% endfor %}
     </div>
+</div>
 {% endblock center %}
-
-{% block right_top %}
-{% endblock right_top %}
-
-
-{% block script %}
-    // 文档加载完成后，渲染markdown
-    $(document).ready(function(){
-        var md = window.markdownit();
-        var content = $('.markdown-text').text().trim();
-        console.log(content)
-        markdown_text = md.render(content);
-        $('.markdown-text').html(markdown_text);
-    })
-
-{% endblock script %}

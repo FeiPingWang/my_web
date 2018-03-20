@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %} 登录 {% endblock %}
+
+{% block top %}
+{{ super() }}
+{% endblock top %}
+
+{% block center %}
+<div class="person-info col-lg-8 col-lg-offset-2">
+    <div class="person-header">
+        <h4>
+            <strong>
+                <i>欢迎, </i>{{ user.user_name }}
+            </strong>
+        </h4>
+        <!--分割线标签-->
+        <hr>
+    </div>
+    <div class="person-avater">
+        <a id="avater" href="#">
+            {% set avater_path = g.my_session.query(User.avater_hash).filter(User.id == user.id).first()[0] %}
+            <img src="{{ url_for('static', filename='img/avater/' ~ avater_path) }}" width="80px" height="80px">
+        </a>
+        <span id="user_name">{{ user.user_name }}</span>
+    </div>
+    <form role="form" class="form-horizontal" action={{ url_for('index.person_info') }} method="post">
+        <div class="form-group">
+            <label class="col-lg-2 control-label">个人简介</label>
+            <div class="col-md-6">
+                <textarea class="form-control" id="brief"></textarea>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+{% endblock center %}
+
+{% block script %}
+    (function(){
+        $("#brief").val("{{ user.brief }}")
+    })();
+{% endblock script %}

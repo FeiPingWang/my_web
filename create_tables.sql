@@ -1,24 +1,26 @@
+DROP database if exists moneyfree;
 create database moneyfree;
 use moneyfree;
 
 
-DROP TABLE Comments;
-DROP TABLE Week_Note;
-DROP TABLE User;
-DROP TABLE Board;
-DROP TABLE Web_View;
+DROP TABLE if exists Comments;
+DROP TABLE if exists Week_Note;
+DROP TABLE if exists User;
+DROP TABLE if exists Board;
+DROP TABLE if exists Web_View;
 
 
 create table User (
   id   VARCHAR(32)  NOT NULL PRIMARY KEY,
   user_name VARCHAR(20)  NOT NULL,
   password  VARCHAR(100) NOT NULL,
-  avater_hash VARCHAR(32),
+  is_admin tinyint DEFAULT 0,
+  avater_hash VARCHAR(32) DEFAULT 'default.jpg',
   phone     VARCHAR(20),
   email     VARCHAR(30),
   brief     VARCHAR(140) DEFAULT '介绍下自己吧',
   ct        TIMESTAMP    DEFAULT CURRENT_TIMESTAMP
-)DEFAULT CHARSET=utf8;
+)ENGINE=InnoDB CHARSET=utf8;
 
 
 CREATE TABLE Week_Note (
@@ -31,20 +33,20 @@ CREATE TABLE Week_Note (
   views    INTEGER     NOT NULL DEFAULT 0,
   user_id  VARCHAR(32) NOT NULL,
   board_id INT         NOT NULL
-)DEFAULT CHARSET=utf8;
+)ENGINE=InnoDB CHARSET=utf8;
 
 
 CREATE TABLE Board (
   id INT         NOT NULL PRIMARY KEY AUTO_INCREMENT,
   title    VARCHAR(50) NOT NULL
-)DEFAULT CHARSET=utf8;
+)ENGINE=InnoDB CHARSET=utf8;
 
 
 CREATE TABLE Web_View (
   id INT         NOT NULL PRIMARY KEY AUTO_INCREMENT,
   title    VARCHAR(50) NOT NULL,
   views INT NOT NULL
-)DEFAULT CHARSET=utf8;
+)ENGINE=InnoDB CHARSET=utf8;
 
 
 CREATE TABLE Comments (
@@ -53,7 +55,7 @@ CREATE TABLE Comments (
   ct       TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
   note_id VARCHAR(32) NOT NULL, -- 所属的文章
   user_id VARCHAR(32) NOT NULL  -- 所属用户
-)DEFAULT CHARSET=utf8;
+)ENGINE=InnoDB CHARSET=utf8;
 
 
 ALTER TABLE Week_Note
@@ -85,4 +87,13 @@ insert into Web_View(title, views) values
 (
     '王飞平的网站',
     0
+);
+
+INSERT INTO User(id, user_name, password, is_admin, brief) VALUES
+(
+  'b776059eee014a84a38c20b1774ad709',
+  'admin',
+  'pbkdf2:sha256:50000$hcSXu408$5e5e45871ccd5431656fa36c6961b412a57444324732bbbdceee930ffe07b67a',
+  1,
+  '管理员'
 )

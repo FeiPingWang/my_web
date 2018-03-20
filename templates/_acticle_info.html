@@ -1,0 +1,14 @@
+<div class="topic-cell">
+    <a class="user-avater" href="#">
+    {% set avater_path = g.my_session.query(User.avater_hash).filter(User.id == n.user_id).first()[0] %}
+    <img class="title-avater"  height="40px" width="40px"
+     src="{{ url_for('static', filename='img/avater/' ~ avater_path) }}">
+    </a>
+    <div class="topic-content">
+        <h4><a href="{{ url_for('weekly.detail', id=n.id) }}">{{ n.title }}</a></h4>
+        <p>
+            默认分类 • {{ g.my_session.query(User.user_name).filter(User.id == n.user_id).first()[0] }}
+            • {{ n.replys }} 个回复 • {{ n.views }} 次浏览 • {{ n.ct }}
+        </p>
+    </div>
+</div>

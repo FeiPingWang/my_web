@@ -2,67 +2,14 @@
 {% import "pagination_macro.html" as macros %}
 {% block title %} 首页 {% endblock %}
 
-{% block top %}
-{{ super() }}
-{% endblock top %}
-
-{% block top_plate %}
-    <!--渲染版块-->
-    {% for b in board %}
-        <li><a href="#">{{ b.title }}</a></li>
-    {% endfor %}
-{% endblock top_plate %}
-
-<!-- 博客的信息 -->
-{% block right_top %}
-    <h5>
-        <strong>
-            网站统计
-        </strong>
-    </h5>
-    <p>
-        "访问量: "
-        <span class="badge">
-            {{ g.my_session.query(Web_View).first().views }}
-        </span>
-    </p>
-    <p>
-        "文章总数: "
-        <span class="badge">
-            {{ g.my_session.query(Weekly).count() }}
-        </span>
-        "评论总数: "
-        <span class="badge">
-            {{ g.my_session.query(Comments).count() }}
-        </span>
-    </p>
-{% endblock right_top %}
-
-{% block right_center %}
-<a href="{{ url_for('weekly.new') }}">新建文章</a>
-{% endblock right_center %}
-
 {% block center %}
-    <div class="topic-list">
-        {% set path='img/avater/' %}
-         {% for n in note %}
-            <div class="topic-cell">
-                <a class="user-avater" href="#">
-                    {% set avater_path = g.my_session.query(User.avater_hash).filter(User.id == n.user_id).first()[0] %}
-                    <img class="title-avater"  height="40px" width="40px"
-                         src="{{ url_for('static', filename='img/avater/' ~ avater_path) }}"
-                    >
-                </a>
-                <div class="topic-content">
-                    <h4><a href="{{ url_for('weekly.detail', id=n.id) }}">{{ n.title }}</a></h4>
-                    <p>
-                        默认分类 • {{ g.my_session.query(User.user_name).filter(User.id == n.user_id).first()[0] }}
-                        • {{ n.replys }} 个回复 • {{ n.views }} 次浏览 • {{ n.ct }}
-                    </p>
-                </div>
-            </div>
-        {% endfor %}
-    </div>
+    {% for n in note %}
+        <!--逐篇文章-->
+        <div class="entry-box">
+            {% include '_acticle_info.html' %}
+        </div>
+
+    {% endfor %}
     <!-- 导入 -->
     {% if pagination.total_page > 1 %}
         {{ macros.pagination(pagination) }}

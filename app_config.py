@@ -1,4 +1,4 @@
-IS_TESTING = 'Ture'
+IS_TESTING = 'True'
 
 # 工程的配置选项
 class Config():

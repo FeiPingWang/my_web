@@ -37,11 +37,12 @@ def index():
     return render_template('index/index.html', board=board_list, note=note, pagination=pagination)
 
 
-@main.route('/manager', methods=['GET', 'POST'])
+@main.route('/person_info', methods=['GET', 'POST'])
 @is_login
-def avater_upload():
+def person_info():
     if request.method == 'GET':
-        return render_template('index/manager.html')
+        u = User.find_by_id(current_user_id())
+        return render_template('index/person_info.html', user=u)
     else:
         file = request.files['file']
         file_name = file.filename
@@ -60,7 +61,8 @@ def avater_upload():
         User.update_avater(user_id, save_name)
     return redirect(url_for('index.index'))
 
-#    返回指定页数的对象
+
+# 返回指定页数的对象
 @main.route('/page/<int:id>/', methods=['GET'])
 def get_page(id):
     page = id

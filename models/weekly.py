@@ -20,8 +20,9 @@ class Weekly(Base):
     board_id = Column(Integer, ForeignKey('Board.id'))
     
     def __init__(self, form, user_id):
-        self.title = form.get('title', '')
-        self.content = form.get('content', '')
+        # 这里一定要 ** 去除字符串 **，否则jquery赋值html会出错
+        self.title = form.get('title', '').replace("\r\n",'')
+        self.content = form.get('content', '').replace("\r\n",'')
         self.board_id = form.get('board_id', '-1')
         self.mt = self.ct
         self.user_id = user_id
