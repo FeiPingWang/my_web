@@ -12,10 +12,11 @@ from flask import (
     current_app,
 )
 from models.weekly import Weekly
-from models.board import Board
 from models.users import User
 from models.conmments import Comments
 from models.web_view import Web_View
+from models.types import Types
+from models.menus import Menus
 from tools.utils import current_user_id, is_login
 from tools.log import logger
 import os, datetime
@@ -29,7 +30,9 @@ main = Blueprint('weekly', __name__)
 def new():
     # 返回话题列表
     logger.info('新建文件')
-    topic = Board.get_all_obj(1)
+    # TODO；需要优化
+    topic = g.my_session.query(Types).all()
+    print(topic)
     return render_template('weekly/new.html', board=topic)
 
 
@@ -79,7 +82,7 @@ def edit(id):
     content = request.form.get('content', '')
     # 如果为空字符串，表示还没有提交更改
     if content is '':
-        topic = Board.get_all_obj(1)
+        topic = Types.get_all_obj(1)
         author = User.find_by_id(old_note.user_id).user_name
         comments = Comments.find_by_note_id(id)
         return render_template('weekly/edit.html', note=old_note, comments=comments, author=author, board=topic)

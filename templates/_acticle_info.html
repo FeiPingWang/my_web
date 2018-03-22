@@ -7,7 +7,7 @@
     <div class="topic-content">
         <h4><a href="{{ url_for('weekly.detail', id=n.id) }}">{{ n.title }}</a></h4>
         <p>
-            默认分类 • {{ g.my_session.query(User.user_name).filter(User.id == n.user_id).first()[0] }}
+            {{ g.my_session.query(Types.title).filter(Types.id == n.type_id).first()[0] }} • {{ g.my_session.query(User.user_name).filter(User.id == n.user_id).first()[0] }}
             • {{ n.replys }} 个回复 • {{ n.views }} 次浏览 • {{ n.ct }}
         </p>
     </div>

@@ -11,10 +11,10 @@ from flask import (
 )
 from models.users import User
 from models.web_view import Web_View
+from models.types import Types
 from tools.utils import current_user_id, is_login
 from tools.log import logger
 from tools.pagination import Pagination
-from models.board import Board
 from models.weekly import Weekly
 import os
 import random, string
@@ -29,12 +29,20 @@ def index():
     Web_View.incre_views()
     page = request.args.get('page', '1')
     total = Weekly.get_total_page_num()
-    
-    board_list = Board.get_all_obj(int(page))
+
     note = Weekly.get_all_obj(page)
     # 构造文章的分页对象
     pagination = Pagination(int(page), int(total))
-    return render_template('index/index.html', board=board_list, note=note, pagination=pagination)
+    return render_template('index/index.html', note=note, pagination=pagination)
+
+
+# 根据文章分类，显示文章
+@main.route('/note_type/<int:id>')
+def note_type(id):
+    print('note-type id:{}'.format(id))
+    Web_View.incre_views()
+    page = 1
+    return '<h1> test </h1>'
 
 
 @main.route('/person_info', methods=['GET', 'POST'])
@@ -46,6 +54,7 @@ def person_info():
     else:
         file = request.files['file']
         file_name = file.filename
+        print('file_name, ', file_name)
         ext = file_name.rsplit('.', 1)[1]  # 获取文件后缀
         file_dir = current_app.config['AVATER_IMG_PATH']
         if not os.path.exists(file_dir):
@@ -108,7 +117,7 @@ def register():
             User.new(u)
             logger.info('{} success register'.format(u.user_name))
             flash('注册成功', 'success')
-            return redirect(url_for('index.index'))
+            return redirect(url_for('index.login'))
         else:
             flash('用户名被占用，请重新输入', 'warning')
     return render_template('index/register.html')

@@ -19,19 +19,21 @@ app.register_blueprint(test_routes, url_prefix='/test')
 
 from models.users import User
 from models.web_view import Web_View
-from models.board import Board
 from models.weekly import Weekly
 from models.conmments import Comments
+from models.menus import Menus
+from models.types import Types
 
 
 # 把dict中的变量加入到jinja2的上下文，在所有模板中都可见
 @app.context_processor
 def all_modules():
     return dict(User=User,
-                Board=Board,
                 Weekly=Weekly,
                 Web_View=Web_View,
                 Comments=Comments,
+                Menus=Menus,
+                Types=Types,
                 )
 
 

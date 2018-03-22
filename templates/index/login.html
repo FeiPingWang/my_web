@@ -2,7 +2,8 @@
 {% block title %} 登录 {% endblock %}
 
 {% block center %}
-<div class="login">
+<div class="entry-box">
+    <div class="login">
     <form role="form" class="form-horizontal login-form" action={{ url_for("index.login") }} method="post">
         <div class="form-group">
             <label class="col-md-2 control-label" for="username">用户名</label>
@@ -24,5 +25,5 @@
         </div>
     </form>
 </div>
-
+</div>
 {% endblock center %}

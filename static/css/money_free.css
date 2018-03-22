@@ -33,11 +33,26 @@
 
 /* 登录框 */
 .login {
-    background-color: #ffffff;
-    min-height:400px;
+    min-height : 500px;
+    width : 1000px;
+    margin : auto auto;
 }
+
 /* 注册框 */
 .register {
-    background-color: #ffffff;
-    min-height:400px;
+    min-height:500px;
+    width : 1000px;
+    margin : auto auto;
+}
+
+/* 用户中心 */
+.user-detail {
+    margin-left : 20px;
+}
+.account {
+    min-height : 250px;
+}
+
+#update-avater{
+    width : 200px;
 }

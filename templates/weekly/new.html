@@ -20,7 +20,7 @@
         <div class="form-group">
             <label for="board" class="col-lg-1 control-label" >版块</label>
             <div class="col-lg-11">
-                <select class="form-control" name="board_id" required>
+                <select class="form-control" name="type_id" required>
                     <option value="">请选择</option>
                     {% for b in board %}
                         <option value="{{ b.id }}">{{ b.title }}</option>

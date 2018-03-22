@@ -6,7 +6,8 @@
 {% endblock top %}
 
 {% block center %}
-<div class="register">
+<div class="entry-box">
+    <div class="register">
     <form role="form" class="form-horizontal" action={{ url_for('index.register') }} method="post">
         <div class="form-group">
             <label class="col-md-2 control-label" for="username">用户名</label>
@@ -45,5 +46,6 @@
 		    </div>
         </div>
     </form>
+</div>
 </div>
 {% endblock center %}

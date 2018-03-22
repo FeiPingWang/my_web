@@ -17,13 +17,14 @@ class Weekly(Base):
     ct = Column(DateTime, default=datetime.utcnow)
     mt = Column(DateTime, nullable=False, default=datetime.utcnow)
     user_id = Column(String(32), ForeignKey('User.id'))
-    board_id = Column(Integer, ForeignKey('Board.id'))
+    type_id = Column(Integer, ForeignKey('Types.id'))
     
     def __init__(self, form, user_id):
         # 这里一定要 ** 去除字符串 **，否则jquery赋值html会出错
         self.title = form.get('title', '').replace("\r\n",'')
         self.content = form.get('content', '').replace("\r\n",'')
-        self.board_id = form.get('board_id', '-1')
+        self.type_id = form.get('type_id', '-1')
+        print('ty ', self.type_id)
         self.mt = self.ct
         self.user_id = user_id
         

@@ -35,32 +35,32 @@
             <div id="navbar-menu" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li><a href="{{ url_for('index.index') }}"><span class="glyghicon glyghicon-home">首页</span></a></li>
+                    {% for menu in g.my_session.query(Menus).all() %}
                     <li class="dropdown">
                         <!--板块文章-->
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">板块<b
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ menu.title }}<b
                         class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            {% for b in g.my_session.query(Board).all() %}
+                            {% for b in g.my_session.query(Types).filter(Types.menu_id == menu.id).all() %}
                                <li>
-                                   <a href="#">{{ b.title }}</a>
+                                   <a href="{{ url_for(b.url, id=b.id) }} ">{{ b.title }}</a>
                                </li>
                             {% endfor %}
                         </ul>
                     </li>
-                    <li class="dropdown">
-                        <!--博客管理-->
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">博客管理<b
-                        class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="{{ url_for('weekly.new') }}">发表文章</a>
-                            </li>
-                        </ul>
-                    </li>
+                    {% endfor %}
 				</ul>
                 <ul class="nav navbar-nav navbar-right">
                     <!--这里应该增加判断是否登录-->
                     <!--用户管理-->
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">博客管理<b
+                        class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ url_for('weekly.new') }}">发表博客</a></li>
+                            <li><a href="#">我的博文</a></li>
+                        </ul>
+                    </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">当前用户<b
                         class="caret"></b></a>

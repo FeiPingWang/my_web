@@ -8,6 +8,8 @@ DROP TABLE if exists Week_Note;
 DROP TABLE if exists User;
 DROP TABLE if exists Board;
 DROP TABLE if exists Web_View;
+DROP TABLE if exists Menus;
+DROP TABLE if exists Types;
 
 
 create table User (
@@ -32,13 +34,7 @@ CREATE TABLE Week_Note (
   replys   INTEGER     NOT NULL DEFAULT 0,
   views    INTEGER     NOT NULL DEFAULT 0,
   user_id  VARCHAR(32) NOT NULL,
-  board_id INT         NOT NULL
-)ENGINE=InnoDB CHARSET=utf8;
-
-
-CREATE TABLE Board (
-  id INT         NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  title    VARCHAR(50) NOT NULL
+  type_id  INT         NOT NULL
 )ENGINE=InnoDB CHARSET=utf8;
 
 
@@ -58,12 +54,28 @@ CREATE TABLE Comments (
 )ENGINE=InnoDB CHARSET=utf8;
 
 
+CREATE TABLE Menus (
+  id      INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  title VARCHAR(20) NOT NULL,   -- 名字
+  num INT NOT NULL  -- 显示的次序
+)ENGINE=InnoDB CHARSET=utf8;
+
+
+CREATE TABLE Types (
+  id      INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  title VARCHAR(20) NOT NULL,   -- 名字
+  url VARCHAR(20) NOT NULL,
+  menu_id INT NOT NULL,         -- 所属的菜单
+  num INT NOT NULL  -- 所属用户
+)ENGINE=InnoDB CHARSET=utf8;
+
+
 ALTER TABLE Week_Note
 ADD FOREIGN KEY(user_id) REFERENCES User(id) ON DELETE CASCADE ON UPDATE CASCADE;
 
 
 ALTER TABLE Week_Note
-ADD FOREIGN KEY(board_id) REFERENCES Board(id) ON DELETE CASCADE ON UPDATE CASCADE;
+ADD FOREIGN KEY(type_id) REFERENCES Types(id) ON DELETE CASCADE ON UPDATE CASCADE;
 
 
 ALTER TABLE Comments
@@ -74,14 +86,9 @@ ALTER TABLE Comments
 ADD FOREIGN KEY(user_id) REFERENCES User(id) ON DELETE CASCADE ON UPDATE CASCADE;
 
 
--- 插入两个版块
-INSERT INTO Board(title) VALUES
-(
-  '理财周报'
-),
-(
-  '随笔'
-);
+ALTER TABLE Types
+ADD FOREIGN KEY(menu_id) REFERENCES Menus(id) ON DELETE CASCADE ON UPDATE CASCADE;
+
 
 insert into Web_View(title, views) values
 (
@@ -96,4 +103,39 @@ INSERT INTO User(id, user_name, password, is_admin, brief) VALUES
   'pbkdf2:sha256:50000$hcSXu408$5e5e45871ccd5431656fa36c6961b412a57444324732bbbdceee930ffe07b67a',
   1,
   '管理员'
+);
+
+insert into Menus(title, num) values
+(
+  '趋势投资',
+  '1'
+),
+(
+  '价值投资',
+  '2'
+),
+(
+  '网格',
+  '3'
+);
+
+
+INSERT INTO Types(title, url, menu_id, num) VALUES
+(
+  '分类1',
+  'index.note_type',
+  '1',
+  '2'
+),
+(
+  '分类2',
+  'index.note_type',
+  '1',
+  '2'
+),
+(
+  '分类3',
+  'index.note_type',
+  '1',
+  '3'
 )
