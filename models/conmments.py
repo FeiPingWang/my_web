@@ -24,9 +24,3 @@ class Comments(Base):
         return "<Comments(id='{}', contnet='{}', ct='{}', note_id='{}', user_id='{}')>".format(
             self.id, self.content, self.ct, self.note_id, self.user_id
         )
-    
-    @classmethod
-    def find_by_note_id(cls, id):
-        comments = g.my_session.query(cls).filter(cls.note_id == id).order_by(cls.ct.desc()).all()
-            # get 可以根据主键id得到实例
-        return list(comments)

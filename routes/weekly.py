@@ -61,7 +61,7 @@ def detail(id):
     author = User.find_by_id(note.user_id).user_name
     
     # 根据文章id，查找其所有评论
-    comments = Comments.find_by_note_id(id)
+    comments = Comments.get_obj_by_filter(note_id=id)
     return render_template('weekly/detail.html', note=note, comments=comments, author=author)
 
 
@@ -82,9 +82,9 @@ def edit(id):
     content = request.form.get('content', '')
     # 如果为空字符串，表示还没有提交更改
     if content is '':
-        topic = Types.get_all_obj(1)
+        topic = Types.get_obj_by_filter()
         author = User.find_by_id(old_note.user_id).user_name
-        comments = Comments.find_by_note_id(id)
+        comments = Comments.get_obj_by_filter(note_id=id)
         return render_template('weekly/edit.html', note=old_note, comments=comments, author=author, board=topic)
     else:
         # 更新数据库
