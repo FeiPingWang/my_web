@@ -27,22 +27,30 @@ main = Blueprint('index', __name__)
 @is_login
 def index():
     Web_View.incre_views()
-    page = request.args.get('page', '1')
-    total = Weekly.get_total_page_num()
+    page = request.args.get('page', '1', type=int)
+    note = Weekly.get_all_obj_by_page(page=page)
 
-    note = Weekly.get_all_obj(page)
+    total_num = len(Weekly.get_obj_by_filter())
+
+    total_page = Pagination.get_total_page_num(total_num)
+
     # 构造文章的分页对象
-    pagination = Pagination(int(page), int(total))
-    return render_template('index/index.html', note=note, pagination=pagination)
+    pagination = Pagination(int(page), total_page)
+    return render_template('index/index.html', note=note, pagination=pagination, endpoint='index.index')
 
 
 # 根据文章分类，显示文章
 @main.route('/note_type/<int:id>')
 def note_type(id):
-    print('note-type id:{}'.format(id))
     Web_View.incre_views()
-    page = 1
-    return '<h1> test </h1>'
+    page = request.args.get('page', '1')
+    # 指定分类的所有文章
+    note = Weekly.get_all_obj_by_page(page=page, type_id=id)
+    # 返回分页对象
+    total_num = len(Weekly.get_obj_by_filter(type_id=id))
+    total_page = Pagination.get_total_page_num(total_num)
+    pagination = Pagination(int(page), total_page)
+    return render_template('index/index.html', note=note, pagination=pagination, endpoint='index.note_type', id=id)
 
 
 @main.route('/person_info', methods=['GET', 'POST'])
@@ -69,17 +77,6 @@ def person_info():
         user_id = current_user_id()
         User.update_avater(user_id, save_name)
     return redirect(url_for('index.index'))
-
-
-# 返回指定页数的对象
-@main.route('/page/<int:id>/', methods=['GET'])
-def get_page(id):
-    page = id
-    total = Weekly.get_total_page_num()
-    board_list = Board.get_all_obj(page)
-    note = Weekly.get_all_obj(page)
-    pagination = Pagination(int(page), int(total))
-    return render_template('index/index.html', board=board_list, note=note, pagination=pagination, User=User)
 
 
 @main.route('/login', methods=['GET', 'POST'])

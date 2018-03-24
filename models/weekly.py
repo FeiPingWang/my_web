@@ -2,7 +2,7 @@ from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
 from models import Base
 from datetime import datetime
 from tools.utils import generate_uuid
-from flask import g
+from flask import g, current_app
 
 
 # 周报表
@@ -40,5 +40,4 @@ class Weekly(Base):
     def incre_replys(self):
         self.replys += 1
         g.my_session.commit()
-        
 

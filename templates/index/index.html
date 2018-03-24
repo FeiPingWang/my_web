@@ -12,6 +12,10 @@
     {% endfor %}
     <!-- 导入 -->
     {% if pagination.total_page > 1 %}
-        {{ macros.pagination(pagination) }}
+        {% if endpoint == 'index.index' %}
+            {{ macros.pagination(pagination, endpoint) }}
+        {% else %}
+            {{ macros.pagination(pagination, endpoint, id=id) }}
+        {% endif %}
     {% endif %}
 {% endblock center %}
