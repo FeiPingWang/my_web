@@ -24,7 +24,6 @@ class Weekly(Base):
         self.title = form.get('title', '').replace("\r\n",'')
         self.content = form.get('content', '').replace("\r\n",'')
         self.type_id = form.get('type_id', '-1')
-        print('ty ', self.type_id)
         self.mt = self.ct
         self.user_id = user_id
         
