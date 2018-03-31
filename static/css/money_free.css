@@ -56,3 +56,11 @@
 #update-avater{
     width : 200px;
 }
+
+/* 固定的三个按钮 */
+.floatButton {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    z-index: 9999999;
+}

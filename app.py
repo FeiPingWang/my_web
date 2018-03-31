@@ -9,12 +9,10 @@ app.config.from_object(Config)
 
 from routes.index import main as index_routes
 from routes.weekly import main as weekly_routes
-from routes.test import main as test_routes
 
 
 app.register_blueprint(index_routes)
 app.register_blueprint(weekly_routes, url_prefix='/weekly')
-app.register_blueprint(test_routes, url_prefix='/test')
 
 
 from models.users import User

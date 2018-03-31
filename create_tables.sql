@@ -107,15 +107,15 @@ INSERT INTO User(id, user_name, password, is_admin, brief) VALUES
 
 insert into Menus(title, num) values
 (
-  '趋势投资',
+  '板块1',
   '1'
 ),
 (
-  '价值投资',
+  '板块2',
   '2'
 ),
 (
-  '网格',
+  '板块3',
   '3'
 );
 

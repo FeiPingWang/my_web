@@ -32,7 +32,6 @@ def new():
     logger.info('新建文件')
     # TODO；需要优化
     topic = g.my_session.query(Types).all()
-    print(topic)
     return render_template('weekly/new.html', board=topic)
 
 
@@ -112,6 +111,7 @@ def add_comment(id):
 # 接收editormd中ajax发送的图片，保存到本地，并返回链接
 @main.route('/img', methods=['POST'])
 def upload_img():
+    print('img here')
     file = request.files.get('editormd-image-file')
     if not file:
         res = {
@@ -132,7 +132,7 @@ def upload_img():
         return jsonify(res)
 
 
-# 返回图片， TODO: nginx缓存
+# 返回图片
 @main.route('/image/<filename>', methods=['GET', 'POST'])
 def get_img(filename):
     with open(os.path.join(current_app.config['IMG_PATH'], filename), 'rb') as file:
