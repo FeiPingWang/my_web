@@ -7,7 +7,9 @@ from flask import (
     url_for,
     flash,
     g,
-    current_app
+    current_app,
+    jsonify,
+    make_response
 )
 from models.users import User
 from models.web_view import Web_View
@@ -119,3 +121,15 @@ def register():
             flash('用户名被占用，请重新输入', 'warning')
     return render_template('index/register.html')
 
+
+@main.route('/testhttp', methods=['GET', 'POST'])
+def testhttp():
+    if request.method == 'GET':
+        result = make_response(render_template('test_http.html'))
+        result.headers['test_header'] = "wfp"
+        return result
+    else:
+        header = request.headers.get("test_header")
+        data = jsonify({'result':'ok', 'header': header})
+        return data
+    return '<h1>success</h1>'

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% import "pagination_macro.html" as macros %}
+{% block title %} 测试http协议扩展 {% endblock %}
+
+{% block center %}
+    <div class="entry-box">
+        <div id="display" class="alert alert-success alert-dismissable" hidden="hidden">
+            <span class="display_header">
+            </span>
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        </div>
+        <input type="text" id="header" placeholder="input request header">
+        <button type="submit" id="button">提交请求</button>
+    </div>
+{% endblock center %}
+
+{% block script %}
+    {{ super() }}
+<script>
+
+    $(document).ready(function(){
+        $("#button").click(function(){
+            var user_header = $("#header").val();
+
+            var data = {};
+            data.test_header = user_header;
+            console.log('input  ' + data.test_header);
+
+            $.ajax({
+                url: '{{ url_for('index.testhttp') }}',
+                type: 'POST',
+                data : data,
+                dataType: 'json',
+                success : function(data){
+                    $(".display_header").empty();
+                    $(".display_header").append("自定义 request header : " + data['header']);
+                    $(".alert").show();
+                },
+                error : function(data){
+                    alert('error');
+                },
+                beforeSend: function(request){
+                    request.setRequestHeader("test_header", user_header);
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}
