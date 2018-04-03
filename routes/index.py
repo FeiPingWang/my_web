@@ -126,10 +126,11 @@ def register():
 def testhttp():
     if request.method == 'GET':
         result = make_response(render_template('test_http.html'))
-        result.headers['test_header'] = "wfp"
+        result.headers['flask-header'] = "wfp"
         return result
     else:
-        header = request.headers.get("test_header")
+        header = request.headers.get("js-header")
+        logger.info('header is {}'.format(header))
         data = jsonify({'result':'ok', 'header': header})
         return data
-    return '<h1>success</h1>'
+    return '<h1>none</h1>'

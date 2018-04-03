@@ -33,6 +33,8 @@
                 dataType: 'json',
                 success : function(data){
                     $(".display_header").empty();
+                    console.log("data['header'] is " + data['header']);
+                    console.log("data['result'] is " + data['result']);
                     $(".display_header").append("自定义 request header : " + data['header']);
                     $(".alert").show();
                 },
@@ -40,7 +42,7 @@
                     alert('error');
                 },
                 beforeSend: function(request){
-                    request.setRequestHeader("test_header", user_header);
+                    request.setRequestHeader("js-header", user_header);
                 }
             });
         });
